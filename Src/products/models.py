@@ -5,9 +5,9 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class Book(models.Model):
     
     title = models.CharField(max_length=200)
-    crated_date = models.DateField(auto_now_add=True)
+    created_date = models.DateField(auto_now_add=True)
     author = models.CharField(max_length=100)
-    price = models.IntegerField()
+    price = models.BigIntegerField()
     inventory = models.IntegerField()
     cover = models.ImageField(upload_to='media/', blank=True)
     description = models.TextField(blank=True)
@@ -16,7 +16,7 @@ class Book(models.Model):
     coupon = models.ForeignKey('Coupon',on_delete=models.SET_NULL, blank=True, null=True,related_name='coupon')
     
     class Meta:
-        ordering = ('title',)
+        ordering = ('-created_date',)
         verbose_name = 'کتاب'
         verbose_name_plural = ' کتاب ها' 
 
@@ -30,8 +30,29 @@ class Book(models.Model):
         
         """
         return reverse('book_detail', args=[str(self.id)])
+        
+    def has_inventory(self,number):
+        return self.inventory>0 and self.inventory>= number
+    
 
+    def removing_inventory(self,number):
+        """
+        changing the inventory due to number of quantity of ordered book
+        """
+        self.inventory = self.inventory - number
+        self.save()
+        return self.inventory
+    
+    def adding_inventory(self,number):
+        """
+        adding to inventory if an item being removed from the cart
 
+        """
+        self.inventory = self.inventory + number
+        self.save()
+        return self.inventory
+    # def checking_inventory(self):
+        
 
 class Category(models.Model):
     name = models.CharField(max_length=200,db_index=True)
@@ -50,11 +71,11 @@ class Category(models.Model):
         return absolute url of each category
 
         """
-        return reverse("products:categories",kwargs={'slug':self.slug})
+        return reverse("books:categories",kwargs={'slug':self.slug})
 
 class Coupon(models.Model):
     COUPON_CHOISE = [('c','نقدی'),('p','درصدی')]
-    coupon_type = models.CharField(max_length=2,choices=COUPON_CHOISE)
+    coupon_type = models.CharField(max_length=1,choices=COUPON_CHOISE)
     created_date = models.DateTimeField(auto_now=True)
     expired_date = models.DateTimeField()
     cash_amount = models.IntegerField(blank=True,null=True)

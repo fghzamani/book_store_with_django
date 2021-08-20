@@ -1,0 +1,13 @@
+{% extends 'bookshop/base2.html' %}
+{% load static %}
+<title>{% block title %} ثبت سفارش | کتاب فروشی {% endblock%}</title>
+{% block content %} 
+<div class="ps-hero " style="background-color: aliceblue;">
+    <div class="container">
+        <h1>از خرید شما ممنونیم</h1>
+        <p>سفارش شما با موفقیت ثبت و نهایی شد.
+        <strong>{{ order.id }}</strong>.</p>
+    </div>
+</div>
+   
+{% endblock %}

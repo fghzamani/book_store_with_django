@@ -1,0 +1,63 @@
+{% extends 'bookshop/base2.html' %}
+{% load static %}
+<title>{% block title %} جزئیات کتاب{% endblock%}</title>
+{% block content %}
+
+    <div class="ps-hero " style=" border-radius:10px;padding: 10px 0 25px; background-image: url('colorfulbook.jpg')">
+        <div   class="container">
+            <h3>{{book.title }}</h3>
+            
+        </div>
+    </div>
+    <main class="ps-main">
+        <div class="ps-container">
+            <div class="ps-product--detail">
+                <div class="row">
+                    <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12 ">
+                        <div class="ps-product__thumbnail">
+                            <div class="ps-product__preview">
+                                <div class="ps-product__variants">
+                                    <div class="item"><img src="{{ object.cover.url }}" alt=""></div>
+                                    
+                                    
+                                </div>
+                                
+                            </div>
+                            <div class="ps-product__image">
+                                <div class="item"><img class="zoom" src="{{ object.cover.url }}" alt="" data-zoom-image="images/shoe-detail/1.jpg"></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 ">
+                        <div class="ps-product__info">
+                            <h1 class = 'text-right'>{{ object.title }}</h1>
+                            
+                            <h3 class="ps-product__price "><span>$</span>{{object.price}}</h3>
+                            <!-- <p class="ps-product__category "><h5> دسته بندی :</h5> <br>{{ object.category}}</p> -->
+                            <div class="ps-product__short-desc">
+                                <p class ='text-right'><h5> توضیحات :</h5> <br>{{ object.description }}</p>
+                            </div>
+                            
+                            <form action="{% url 'cart_add' book.id %}" method="post">
+                                {% csrf_token %}
+                                {{ form.quantity }} <span>تعداد</span>
+                                
+                                <div class="ps-product__shopping">
+                                    <br>
+                                    <input class="ps-btn " style="border-radius: 10px;" type="submit" value="افزودن به سبد خرید">
+                                </div>
+                               
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+               
+                
+            </div>
+        </div>
+    </main>
+   
+	
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'bookshop/base2.html' %}
+{% load static %}
+<title>{% block title %} Cart Details | Bookshop {% endblock%}</title>
+{% block content %} 
+    <div class="ps-hero" style="border-radius: 10px;">
+        <div class="container">
+            <h3 >سبد خرید شما</h3>
+            
+        </div>
+    </div>
+        {%  if isvalid_discount %}
+        <div class="alert alert-warning alert-dismissible" role="alert">You will be redirected to another website, Are you sure?
+    
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            
+        </div>
+        {% endif%}
+   
+    <div class="ps-content pt-80 pb-80">
+        <div class="ps-container">
+            <div class="ps-cart-listing">
+                <table class="table ps-cart__table  text-right">
+                    <thead >
+                        <tr>
+                            <th >سفارش ها</th>
+                            <th>قیمت</th>
+                            <th>تعداد</th>
+                            <th>جمع </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for item in cart %}
+                            {% with book=item.book %}
+                                <tr>
+                                    <td><a class="ps-product--compare" href="{{book.get_absolute_url }}">
+                                        <img class="mr-15" src="{% if book.cover %}{{ book.cover.url }}
+                                        {% endif %}" alt="">
+                                        {{ item.title }}</a></td>
+                                    <td>${{ item.price }}</td>
+                                    <td>
+                                        <div class="form-group--number">
+                                            <form action="{% url 'cart_add' book.id %}" method="POST">
+                                                {{ item.update_quantity_form.quantity }}
+                                                {{ item.update_quantity_form.override }}
+                                                <input type="submit"  value="+" style="background-color: black; color:white;">
+                                                {% csrf_token %}
+                                              </form>
+                                           
+                                            
+                                        </div>
+                                    </td>
+                                    <td>${{ item.total_price }}</td>
+                                    <td>
+                                        <form action="{% url 'cart_remove' book.id %}" method="post">
+                                            <button class="ps-remove"></button>
+                                            {% csrf_token %}
+                                        </form>
+                                        
+                                    </td>
+                                </tr>
+                            {% endwith %}
+                        {% endfor %}
+                       
+                    </tbody>
+                </table>
+                
+                <div class="ps-cart__actions">
+                    <div class="ps-cart__promotion">
+                        <div class="form-group">
+                            <div class="ps-form--icon">
+                               
+                                <form action="{% url 'discount:apply' %}" method="post">
+                                    
+                                    {% csrf_token %}
+                                    <input class="form-control" name="discount" type="text" placeholder="کد تخفیف">
+                                    <!-- {%  if cart.valid_discount == -1 %}
+                                    <p> کد تخفیف نامعتبر</p>
+                                    {% endif %} -->
+                                    <button class="btn" type="submit">  ok</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <a href="{% url 'book_list' %}"><button class="ps-btn ps-btn--gray" style="border-radius: 10px;">افزودن به سبد خرید</button></a>
+                        </div>
+                    </div>
+                    
+                    <div class="ps-cart__total">
+                        {% if cart.discount %}
+                            
+                                <!-- <h3>Subtotal <span>${{ cart.discount.amount|floatformat:2 }}</span></h3> -->
+                                <h3>"{{ cart.discount.code }}" تخفیف
+                                    ({{ cart.get_percent }}% off)<span style="color: red;">- ${{ cart.get_discount|floatformat:2 }}</span></h3>
+
+                        {% endif %}
+                        <h3>    : قیمت کل   <span> $ {{ cart.get_total_price_after_discount|floatformat:2 }}</span></h3>
+
+                        {% if cart.get_total_price == 0 %}
+                        <button class="ps-btn" style="border-radius: 10px;" > سبد خرید خالی</button>
+
+                        {% else %}
+                            <a class="ps-btn" href="{% url 'order_create'  %}">نهایی کردن سفارش و پرداخت</a>
+                        {% endif %}
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                
+{% endblock %}
+

@@ -1,0 +1,10 @@
+{% extends 'bookshop/base2.html' %}
+{% load static %}
+<title>{% block title %} Bookshop Home{% endblock%}</title>
+{% block content %} 
+    {% for category in object_list %}
+        <ul>
+            <a href="{% url 'category_detail' category.slug %}"   class='text-right mr-2'style="text-decoration: none margin: right 5px;"><li> {{category.name }}</li></a>
+        </ul>
+    {% endfor %}
+{% endblock %}

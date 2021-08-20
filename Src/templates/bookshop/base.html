@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link href="apple-touch-icon.png" rel="apple-touch-icon">
+        <link href="{% static 'bookshop/favicon.png' %}" rel="icon">
+        <meta name="author" content="Nghia Minh Luong">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <!-- Fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CLibre+Baskerville:400,700" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'bookshop/plugins/font-awesome/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'bookshop/plugins/ps-icon/style.css' %}">
+        <!-- CSS Library-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'bookshop/plugins/bootstrap/dist/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'bookshop/plugins/owl-carousel/assets/owl.carousel.css' %}">
+        <link rel="stylesheet" href="{% static 'bookshop/plugins/bootstrap-select/dist/css/bootstrap-select.min.css' %}">
+        <link rel="stylesheet" href="{% static 'bookshop/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css' %}">
+        <link rel="stylesheet" href="{% static 'bookshop/plugins/slick/slick/slick.css' %}">
+        <!-- Custom-->
+        <link rel="stylesheet" href="{% static 'bookshop/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'bookshop/plugins/revolution/css/settings.css' %}">
+        <link rel="stylesheet" href="{% static 'bookshop/plugins/revolution/css/layers.css' %}">
+        <link rel="stylesheet" href="{% static 'bookshop/plugins/revolution/css/navigation.css' %}">
+        <!-- bootstrap -->
+       
+
+
+        <title>{% block title %} BookShop {% endblock %}</title>
+    </head>
+    <body>
+        <div class="header--sidebar"></div>
+            <nav class="navigation bg-dark" style="height: 75px;">
+                <form class="navbar-form navbar-right">
+                    {% csrf_token %}
+                    <div class="form-group mr-1">
+                      <input type="text" class="form-control" placeholder="Search" style="height: 35px;">
+                    </div>
+                    <button type="submit" class="btn btn-default mr-2 btn-warning">جست و جو</button>
+                  </form>
+                <div class="container-fluid">
+                    <div class="left">
+                        <div class="header__logo"><a class="ps-logo" href="{% url 'index' %}"><img src="{% static 'bookshop/images/logo.png' %}" alt=""></a></div>
+                    </div>
+                    <div class="center">
+                        <ul class="main-menu menu">
+                            <li class="current-menu-item "><a href="{% url 'index' %}">خانه</a></li>
+                            <li><a href="#">ارتباط با ما</a></li>
+                            
+                            <li><a href="#">دسته بندی</a></li>
+                            
+                            <li><a href="#">خانه</a></li>
+                            <li >
+                                
+                                    <a href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a><ul class="dropdown-menu" >
+                                    <li><a href="#">Sign in </a></li>
+                                    <li><a href="#">Sign up</a></li>
+                                    <li><a href="#">Logout</a></li>
+                                
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    
+        <!-- JS Library-->
+        <script src="{% static 'bookshop/plugins/jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/owl-carousel/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/jquery-bar-rating/dist/jquery.barrating.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/imagesloaded.pkgd.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/masonry.pkgd.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/isotope.pkgd.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/slick/slick/slick.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/jquery.matchHeight-min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/elevatezoom/jquery.elevatezoom.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/gmap3.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/revolution/js/jquery.themepunch.tools.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/revolution/js/jquery.themepunch.revolution.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/revolution/js/extensions/revolution.extension.video.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/revolution/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/revolution/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+        <script src="{% static 'bookshop/plugins/revolution/js/extensions/revolution.extension.actions.min.js' %}"></script>
+        <script src="{% static 'bookshop/js/slider-1.js' %}"></script>
+        <!-- Custom scripts-->
+        <script src="{% static 'bookshop/js/main.js' %}"></script>
+        {% block content %}
+
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,57 @@
+{% extends 'bookshop/base2.html' %}
+{% load static %}
+<title>{% block title %} {% if category %}{{ category.name }}{% else %} All Products {% endif %}  {% endblock%}</title>
+{% block content %}
+    <div class="ps-section pt-80 pb-30">
+        <div class="ps-container">
+            <div class="ps-section__header text-center">
+                <h2 class="ps-section__title">تمامی دسته بندی ها </h2>
+                
+            </div>
+
+    <div class="ps-section ps-section--jewelry ps-section--special-product masonry-root pt-30 pb-80" style="margin-top:-5%;">
+        <div class="ps-container">
+            <div class="ps-section__header text-center">
+                
+                <ul class="ps-masonry__filter text-center">
+
+                    <li {% if not category %} class="current" {% endif %}><a href="{% url 'book_list' %}" data-filter="*"> همه /</a></li>
+                    
+                    {% for c in cat_list %}
+                       <a href="#">{{c.name}} /</a> 
+                    
+                    {% endfor %}                
+                </ul>
+            </div>
+        </div>
+    </div>
+             <!-- products  -->
+            <div class="ps-section__content">
+                <div class="row">
+                    {% for book in object_list %}
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+                            <div class="ps-product--fashion">
+                                    <div class="ps-product__thumbnail"><a class="ps-product__overlay" href="{% url 'book_detail' book.pk %}"></a><img class="lazy" src="{% if book.cover %}{{ book.cover.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="">
+                                        <ul class="ps-product__actions">
+                                            
+                                        </ul>
+                                    </div>
+                                    <div class="ps-product__content"><a class="ps-product__title" href="{% url 'book_detail' book.pk %}">{{ book.title }}</a>
+                                        <p class="ps-product__price">${{ book.price }}</p>
+                                    </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+{% extends 'bookshop/base2.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="ps-section pt-80 pb-30">
+        <div class="ps-container">
+            <div class="ps-section__header text-center">
+                <h2 class="ps-section__title">  نتایج جست و جو برای {{ search }} </h2>
+                <br>
+                
+            </div>
+            <!-- products  -->
+            <div class="ps-section__content">
+                <div class="row">
+                    {% if results %}
+                        {% for result in results %}
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+                                <div class="ps-product--fashion">
+                                        <div class="ps-product__thumbnail"><a class="ps-product__overlay" href="{% url 'book_detail'  result.pk %}"></a>
+                                            <img class="lazy" src=" {{ result.cover.url }}" alt="">
+                                            <ul class="ps-product__actions">
+                                                
+                                            </ul>
+                                        </div>
+                                        <div class="ps-product__content"><a class="ps-product__title" href="{% url 'book_detail'  result.pk %}">{{result.title }}</a>
+                                            <p class="ps-product__price">${{ result.price }}</p>
+                                        </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                    <h3 class='text-center'>نتیجه ای یافت نشد</h3>
+                    {% endif %}
+                </div>
+             
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+
+
