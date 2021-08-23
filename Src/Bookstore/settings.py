@@ -82,13 +82,14 @@ WSGI_APPLICATION = 'Bookstore.wsgi.application'
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-'NAME': 'bookstore',
+'NAME': 'bookstore1',
 'USER': 'postgres',
 'PASSWORD': '1990695566',
 'HOST': '127.0.0.1',
 'PORT': '5432',
 }
 }
+
 
 
 # Password validation
@@ -134,3 +135,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 CART_SESSION_ID = 'cart'
+AUTH_USER_MODEL = 'users.User'

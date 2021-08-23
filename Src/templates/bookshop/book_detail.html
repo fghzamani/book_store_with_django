@@ -34,7 +34,7 @@
                             <h1 class = 'text-right'>{{ object.title }}</h1>
                             
                             <h3 class="ps-product__price "><span>$</span>{{object.price}}</h3>
-                            <!-- <p class="ps-product__category "><h5> دسته بندی :</h5> <br>{{ object.category}}</p> -->
+                            <p class="ps-product__category "><h5> دسته بندی :</h5> <br> {% for category in object.category.all %} {{ category}} {% endfor %}</p>
                             <div class="ps-product__short-desc">
                                 <p class ='text-right'><h5> توضیحات :</h5> <br>{{ object.description }}</p>
                             </div>

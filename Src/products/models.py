@@ -2,6 +2,16 @@ from django.db import models
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+class CategoryManager(models.Manager):
+    """
+        manager for return all books in each category
+
+    """
+    def get_all_book(self):
+        return self.book.all()
+
+
+
 class Book(models.Model):
     
     title = models.CharField(max_length=200)
@@ -11,7 +21,7 @@ class Book(models.Model):
     inventory = models.IntegerField()
     cover = models.ImageField(upload_to='media/', blank=True)
     description = models.TextField(blank=True)
-    category = models.ManyToManyField('Category',related_name='category')
+    category = models.ManyToManyField('Category',related_name='book')
     publisher = models.CharField(max_length=200,blank=True,null=True)
     coupon = models.ForeignKey('Coupon',on_delete=models.SET_NULL, blank=True, null=True,related_name='coupon')
     
@@ -51,13 +61,34 @@ class Book(models.Model):
         self.inventory = self.inventory + number
         self.save()
         return self.inventory
-    # def checking_inventory(self):
+   
+    def apply_cash_coupon(self,cash_amount):
+        """
+        apply the amount of cash coupon on book price
+
+        """
+        self.price = self.price - cash_amount
+        return self.price
+
+    def apply_percent_coupon(self):
+        """
+        apply the percent coupon on price (takhfife darsadi)
         
+        """
+        self.price = self.price - self.price*self.coupon.percent_amount
+        return self.price
+    
+    @property
+    def get_coupon_type(self):
+        if self.coupon:
+            return self.coupon.coupon_type
+
+
 
 class Category(models.Model):
     name = models.CharField(max_length=200,db_index=True)
     slug = models.SlugField(max_length=200,unique=True)
-    
+    objects = CategoryManager()
     class Meta:
         ordering = ['name']
         verbose_name = 'دسته بندی'
@@ -71,7 +102,7 @@ class Category(models.Model):
         return absolute url of each category
 
         """
-        return reverse("books:categories",kwargs={'slug':self.slug})
+        return reverse("category_detail",args=[self.slug])
 
 class Coupon(models.Model):
     COUPON_CHOISE = [('c','نقدی'),('p','درصدی')]
@@ -84,5 +115,10 @@ class Coupon(models.Model):
 
 
     class Meta:
+        ordering = ['created_date']
         verbose_name = " کوپن"
         verbose_name_plural = 'کوپن ها'
+    
+    
+
+    

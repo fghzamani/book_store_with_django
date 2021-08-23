@@ -48,20 +48,29 @@
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
                             <div class="header__actions">
                                
-                                    <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account<i class="fa fa-angle-down"></i></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">My Dashboard</a></li>
-                                            <li><a href="#">Logout</a></li>
-                                            
-                                        </ul>
-                                    </div>
-                                
-                                <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login & Regiser <i class="fa fa-angle-down"></i></a>
+                                <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account<i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Login</a></li>
-                                        <li><a href="#"> Register</a></li>
+                                        <li><a href="#">پروفایل</a></li>
+                                        <li><a href="{% url 'logout' %}">خروج</a></li>
+                                        
                                     </ul>
                                 </div>
+                                
+                                <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ثبت نام و ورود  <i class="fa fa-angle-down"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{% url 'login' %}">ورود</a></li>
+                                        <li><a href="{% url 'register' %}"> ثبت نام</a></li>
+                                    </ul>
+                                    
+                                </div>
+                                <span class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {% if user.is_authenticated %}
+                                        <p>خوش آمدید  {{ user.get_username }}</p>
+                                    {% else %}
+                                        <p>خوش آمدید. برای دسترسی بیشتر وارد شوید</p>
+                                    {% endif %}
+                                </span>
+                                
                                
    
                             </div>

@@ -8,6 +8,10 @@ from users.models import Customer
 
 
 def order_create(request):
+    """
+    creating the orders and orderdetails instances
+
+    """
     cart = Cart(request)
     print('Type cart',type(cart))
     print('request:',request.method)
@@ -47,6 +51,10 @@ def order_create(request):
     
         
 def created_order(request ):
+    """
+        if the order successfully seved this page will be rendered. it shows just a message  
+
+    """
     return render(request , 'orders/order_created.html',{})
 
 # @staff_member_required

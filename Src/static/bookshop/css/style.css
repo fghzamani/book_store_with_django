@@ -4137,8 +4137,8 @@ main.ps-main {
   .ps-hero p {
     margin-bottom: 0;
     font-size: 14px;
-    color:#ebebeb
-    line-height: 1.4em; }
+    color:#ebebeb;
+    line-height:1.4em;}
 
 .ps-banner--owl {
   position: relative;

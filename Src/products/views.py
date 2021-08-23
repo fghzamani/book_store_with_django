@@ -17,12 +17,21 @@ class HomeView(TemplateView):
 
 class BookListView(ListView):
     model = Book
+    # paginate_by = 2
     template_name = 'bookshop/book_list.html'
     def get_context_data(self,**kwargs):
         context = super(BookListView,self).get_context_data(**kwargs)
         context['cat_list'] = Category.objects.all()
         print(context)
         return context
+    
+    # def get(self,*args,**kwargs):
+    #     if Book.get_coupon_type=='c':
+    #         price_ = Book.apply_cash_coupon(*args)
+    #     elif Book.get_coupon_type =='p':
+    #         price_ = Book.apply_percent_coupon(*args)
+    #     return price_
+ 
     
     
 
@@ -57,7 +66,14 @@ class CategoryListView(ListView):
     
     model = Category
     template_name = 'bookshop/all_category_list.html'
-    
+class CategoryDetailView(DetailView):
+    model = Category
+    template_name = 'bookshop/category_detail.html' 
+    def get_context_data(self,**kwargs):
+        context = super(CategoryDetailView,self).get_context_data(**kwargs)
+        context['cat_book_list'] = Category.objects.get_all_book()
+        print(context)
+        return context  
 
 class SearchList(ListView):
     model = Book

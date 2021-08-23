@@ -8,7 +8,7 @@ from .forms import CouponApplyForm
 @require_POST
 def discount_apply(request):
     
-    print("request.method:",request.method)
+    # print("request.method:",request.method)
     if request.method == 'POST':
         mycode = request.POST['discount']
         print('mycode',mycode)

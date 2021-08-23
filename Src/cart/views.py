@@ -19,7 +19,7 @@ def cart_add(request,book_id):
             cart.add(book=book,
                         quantity=cd['quantity'],
                         override_quantity=cd['override'])
-       
+        
             return  redirect('cart_detail')
         
     

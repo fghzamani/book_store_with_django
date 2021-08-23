@@ -15,12 +15,12 @@
                 
                 <ul class="ps-masonry__filter text-center">
 
-                    <li {% if not category %} class="current" {% endif %}><a href="{% url 'book_list' %}" data-filter="*"> همه /</a></li>
+                    <li {% if not category %} class="current" {% endif %}><a href="{% url 'book_list' %}" data-filter="*"> همه </a></li>
                     
                     {% for c in cat_list %}
-                       <a href="#">{{c.name}} /</a> 
+                    <li {% if category.slug == c.slug %} class="current" {% endif %}><a href="{{ c.get_absolute_url }}" data-filter=".bracelets">{{ c.name }}</a></li>
+                    {% endfor %}
                     
-                    {% endfor %}                
                 </ul>
             </div>
         </div>

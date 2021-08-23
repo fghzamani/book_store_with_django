@@ -1,7 +1,48 @@
 from django.db import models
 from django.conf import settings
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser ,BaseUserManager
 from django.contrib.auth.models import Group
+from django.contrib.auth.models import UserManager
+
+
+# class UserManager(BaseUserManager):
+#     def create_user(self,first_name,last_name, email,address, password=None, is_admin=False, is_staff=False, is_active=True):
+#         if not email:
+#             raise ValueError("User must have an email")
+#         if not password:
+#             raise ValueError("User must have a password")
+#         if not address:
+#              raise ValueError("User must have an address")
+
+#         user = self.model(
+#             email=self.normalize_email(email)
+#         )
+    
+#         user.set_password(password)  # change password to hash
+#         user.address = address
+#         user.admin = is_admin
+#         user.staff = is_staff
+#         user.active = is_active
+#         user.save(using=self._db)
+#         return user
+        
+#     def create_superuser(self, email, password=None):
+#         if not email:
+#             raise ValueError("User must have an email")
+#         if not password:
+#             raise ValueError("User must have a password")
+        
+
+#         user = self.model(
+#             email=self.normalize_email(email)
+#         )
+       
+#         user.set_password(password)
+#         user.admin = True
+#         user.staff = False
+#         user.active = True
+#         user.save(using=self._db)
+#         return user
 
 class Address(models.Model):
     """
@@ -48,49 +89,19 @@ class Address(models.Model):
     class Meta:
         verbose_name = 'نشانی'
         verbose_name_plural = 'نشانی ها'
-class User(AbstractBaseUser):
-    first_name = models.CharField(max_length=50, blank=True,null=True)
-    last_name = models.CharField(max_length=50,blank=True,null=True)
-    email = models.EmailField(verbose_name='email address',max_length=255,unique=True,)
+class User(AbstractUser):
+    
+    
     address = models.ForeignKey(Address,on_delete = models.DO_NOTHING,related_name='user',blank=True,null=True)
-    is_active = models.BooleanField(default=True)
-    staff = models.BooleanField(default=False) # a admin user; non super-user
-    admin = models.BooleanField(default=False) # a superuser
-
+    email = models.EmailField(unique =True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = [] # Email & Password are required by default.
 
-    def get_full_name(self):
-        # The user is identified by their email address
-        return self.email
-
-    def get_short_name(self):
-        # The user is identified by their email address
-        return self.email
 
     def __str__(self):
         return self.email
 
-    def has_perm(self, perm, obj=None):
 
-        """Does the user have a specific permission?"
-           Simplest possible answer: Yes, always"""
-        return True
-
-    def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
-        return True
-
-    @property
-    def is_staff(self):
-        "Is the user a member of staff?"
-        return self.staff
-
-    @property
-    def is_admin(self):
-        "Is the user a admin member?"
-        return self.admin
 
 
 class Customer(User):
@@ -113,5 +124,5 @@ class Staff(User):
         verbose_name ='کارمند'
         verbose_name_plural = 'کارمندان'
     def __str__(self):
-        return self.user.email
+        return self.email
 
