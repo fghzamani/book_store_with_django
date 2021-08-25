@@ -50,7 +50,7 @@
                                
                                 <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account<i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">پروفایل</a></li>
+                                        <li><a href="{% url 'dashboard'%}">پروفایل</a></li>
                                         <li><a href="{% url 'logout' %}">خروج</a></li>
                                         
                                     </ul>
@@ -136,40 +136,7 @@
         
         {% endblock %}
 
-        <div class="ps-section--features">
-            <div class="ps-container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-                        <div class="ps-iconbox">
-                            <header><i class="fa-solid fa-moped"></i>
-                                <h3>ارسال رایگان</h3>
-                                <p></p>
-                            </header>
-                            <p>ارسال سریع و رایگان به کلیه نقاط ایران</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-                        <div class="ps-iconbox">
-                            <header><i class="ps-icon-wallet"></i>
-                                <h3>تضمین محصولات</h3>
-                                
-                            </header>
-                            <p>امکان بازگشت در صورت عدم رضایت مشتری</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-                        <div class="ps-iconbox">
-                            <header><i class="fa-solid fa-phone-volume"></i>
-                                <h3>پشتیبانی 24 ساعته</h3>
-                               
-                            </header>
-                            <p>در صورت وجود سوال یا اشکال می توانید از خدمات پشتیبانی آنلاین فروشگاه بهره مند شوید.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        
         <footer class="ps-footer site-footer">
             <div class="ps-footer__content">
                 <div class="ps-container">
@@ -269,40 +236,9 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
                             <div class="ps-product__info">
-                                <div class="ps-product__rating">
-                                    <select class="ps-rating">
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                        <option value="1">4</option>
-                                        <option value="2">5</option>
-                                    </select>
-                                </div>
-                                <h1>Air strong  training</h1>
-                                <p class="ps-product__category"><a href="#">  Men shoes</a>,<a href="#">  Nike</a>,<a href="#">  Jordan</a></p>
-                                <h3 class="ps-product__price"><span>£</span> 115 <del><span>£</span> 330</del></h3>
-                                <div class="ps-product__short-desc">
-                                    <p>The Nike Free RN 2017 Men's Running Shoe weighs less than previous versions and features an updated knit material…</p>
-                                </div>
-                                <div class="ps-product__block ps-product__style">
-                                    <h4>CHOOSE YOUR COLOR</h4>
-                                    <div class="ps-radio ps-radio--inline">
-                                        <input class="form-control" type="radio" id="radio-0" name="type-1">
-                                        <label for="radio-0"></label>
-                                    </div>
-                                    <div class="ps-radio ps-radio--inline ps-radio--color1">
-                                        <input class="form-control" type="radio" id="radio1" name="type-1">
-                                        <label for="radio1"></label>
-                                    </div>
-                                    <div class="ps-radio ps-radio--inline ps-radio--color2">
-                                        <input class="form-control" type="radio" id="radio2" name="type-1">
-                                        <label for="radio2"></label>
-                                    </div>
-                                    <div class="ps-radio ps-radio--inline ps-radio--color3">
-                                        <input class="form-control" type="radio" id="radio3" name="type-1">
-                                        <label for="radio3"></label>
-                                    </div>
-                                </div>
+                                
+                                
+                                
                                 <div class="ps-product__block ps-product__size">
                                     <h4>CHOOSE SIZE & QUANTITY<a href="#">Size chart</a></h4>
                                     <select class="ps-select selectpicker" title="Select Size">

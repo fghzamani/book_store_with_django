@@ -5,54 +5,54 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import get_object_or_404
 from .models import Order
 from users.models import Customer
-
+from django.contrib.auth.decorators import login_required
 
 def order_create(request):
     """
     creating the orders and orderdetails instances
 
     """
-    cart = Cart(request)
-    print('Type cart',type(cart))
-    print('request:',request.method)
-    if request.method == 'GET':
-        customer = Customer.objects.all()[0]
-        if len(cart) != 0:
-            if cart.discount:
+    if request.user.is_authenticated:
+        cart = Cart(request)
+        
+        if request.method == 'GET':
+            customer = request.user
+            if len(cart) != 0:
+                if cart.discount:
+                    
+                    discount = cart.discount
+                    
+                    order = Order.objects.create(customer = customer,discount=discount,billing_address=customer.address,
+                    total_price= cart.get_total_price_after_discount())
+                    
                 
-                discount = cart.discount
+                else:
+                    order = Order.objects.create(customer = customer,billing_address=customer.address,
+                    total_price= cart.get_total_price_after_discount()) 
+                                
+                for item in cart:
+                    Orderdetail.objects.create(order=order,book=item['book'],unit_price=item['price'],quantity=item['quantity'])
+                    
                 
-                order = Order.objects.create(customer = customer,discount=discount,billing_address=customer.address,
-                total_price= cart.get_total_price_after_discount())
-                
+                order.state =True
+                order.save()
             
-            else:
-                order = Order.objects.create(customer = customer,billing_address=customer.address,
-                total_price= cart.get_total_price_after_discount()) 
-                            
-            for item in cart:
-                Orderdetail.objects.create(order=order,book=item['book'],unit_price=item['price'],quantity=item['quantity'])
-                
+            request.session['discount_id']=0
+            cart.clear() # clear the cart
             
-            order.state =True
-            order.save()
-        
-        request.session['discount_id']=0
-        cart.clear() # clear the cart
-        
-        request.session['order_id'] = order.id  # set the order in the session
-        
-        # a = Order.objects.filter(total_price__lte =0)
-        # a.delete()
-        
-        return render(request,'orders/order_create.html',{'cart': cart})
+            request.session['order_id'] = order.id  # set the order in the session
+            
+            
+            
+            return render(request,'orders/order_create.html',{'cart': cart})
+    return redirect('login')
     
    
     
-        
+@login_required(redirect_field_name='login')       
 def created_order(request ):
     """
-        if the order successfully seved this page will be rendered. it shows just a message  
+        if the order successfully sevedو this page will be rendered. it shows just a message  
 
     """
     return render(request , 'orders/order_created.html',{})
@@ -61,3 +61,5 @@ def created_order(request ):
 # def admin_order_detail(request, order_id):
 #     order = get_object_or_404(Order, id=order_id)
 #     return render(request,'admin/orders/order/detail.html',{'order': order})
+
+

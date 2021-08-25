@@ -4,6 +4,7 @@ from products.models import Book
 from discount.models import Discount
 
 
+
 class Order(models.Model):
    
     customer = models.ForeignKey(Customer,on_delete = models.DO_NOTHING , related_name='invoices')
@@ -11,7 +12,8 @@ class Order(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     billing_address = models.ForeignKey(Address,on_delete=models.CASCADE,related_name='address')
     total_price = models.BigIntegerField()
-    discount = models.ForeignKey(Discount,on_delete= models.DO_NOTHING,blank = True,null=True) 
+    discount = models.ForeignKey(Discount,on_delete= models.DO_NOTHING,blank = True,null=True)
+     
     class Meta:
         ordering = ('-created_date',)
         verbose_name = 'سفارش'
@@ -20,10 +22,9 @@ class Order(models.Model):
     def __str__(self):
         return f'Order {self.id}'
 
-    def change_state(self):
-        self.state = 'O'
-        self.save()
-        return self.state
+  
+
+
 
 class Orderdetail(models.Model):
     order = models.ForeignKey(Order,on_delete=models.PROTECT)
@@ -39,3 +40,5 @@ class Orderdetail(models.Model):
         
     def get_cost(self):
         return self.unit_price * self.quantity
+
+

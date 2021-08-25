@@ -1,0 +1,21 @@
+{% extends 'bookshop/base2.html' %}
+{% load static %}
+<title>{% block title %} ثبت نام | کتاب فروشی{% endblock%}</title>
+{% block content %}
+    <div class="container text-right">
+        {% if addresses %}
+            {% for ad in addresses %}
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <p>State: {{ad.city}}</p>
+                            <h3>Address {{ad.Address}}</h3>  
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+        <!-- <h3 class="pt-1 pr-5">ایجاد آدرس جدید</h3> -->
+        <hr>
+{% endblock %}

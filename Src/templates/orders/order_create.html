@@ -70,6 +70,17 @@
                             
                         </div>
                     </div> -->
+                    <div>
+                        <h3>آدرس ها</h3>
+                        {%  if request.user.address.is_default %}
+                            <p>{{request.user.address.city}}</p>
+                            <p>{{request.user.address.Address}}</p>
+                            <p>{{request.user.address.postal_code}}</p>
+                        {%  endif %}
+                        
+                        <h4>مشخصات</h4>
+                        <span class='card'>{{request.user.first_name}} </span><span>{{request.user.last_name}}</span>
+                    </div>
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
                         <div class="ps-checkout__order">
                             <header>

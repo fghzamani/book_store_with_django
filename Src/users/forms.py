@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User,Address,Customer
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
@@ -44,8 +44,6 @@ class UserRegistrationForm(forms.Form):
 	email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control' ,'lable':'نام کاربری'}))
 	first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 	last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-	# city = forms.ChoiceField(widget=forms.ChoiceField(attrs={'class':'form-control'}))
-	# address = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 	password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     
 	class Meta:
@@ -61,3 +59,16 @@ class UserRegistrationForm(forms.Form):
 		if qs.exists():
 			raise forms.ValidationError("email is taken")
 		return email
+
+
+class UserProfileInfo(forms.ModelForm):
+	class Meta:
+		model = Customer
+		fields = ['first_name','last_name','email']
+
+class AddUserAddresForm(forms.ModelForm):
+	class Meta:
+		model = Address
+		fields =['city','Address']
+
+

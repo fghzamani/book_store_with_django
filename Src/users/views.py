@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from .forms import UserLoginForm, UserRegistrationForm
+from .forms import UserLoginForm, UserRegistrationForm,UserProfileInfo,AddUserAddresForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import User
-
+from .models import User,Customer
+from django.contrib.auth.decorators import login_required
 
 def user_login(request):
    
@@ -12,19 +12,15 @@ def user_login(request):
 		if form.is_valid():
 			cd = form.cleaned_data
 			user = authenticate( request, email =cd['email'], password=cd['password'])
-			print('user',user)
-			print('emial',cd)
 			
 			if user is not None:
 				login(request, user)
-				messages.success(request, 'شما با موفقیت وارد شد', 'success')
-				print("YESSSSSSSSSSSSS")
+				messages.success(request, 'شما با موفقیت وارد شدید', 'success')
 				return redirect('index')
 			else:
 				messages.error(request, 'نام کاربری یا رمز عبور اشتباه است', 'danger')
-				print("YAYYYYYYYYYYYYYYYYYYYY")
+				
 	else:
-		# messages.error(request,'Invalid username')
 		form = UserLoginForm()      
 	return render(request, 'users/login.html', {'form':form})
 
@@ -38,21 +34,52 @@ def user_logout(request):
 def user_register(request):
     
 	if request.method == 'POST':
-		print("REGISTERRRRRRRRRRRRRRRRRRRRRRR")
+		
 		form = UserRegistrationForm(request.POST)
 		if form.is_valid():
 			cd = form.cleaned_data
-			print(cd)
-			user = User.objects.create(first_name =cd['first_name'], last_name = cd['last_name']
-			,password = cd['password'],email = cd['email'])
-			print("REGISTERRRRRRRRRRRRRRRRRRRRRRR")
+			user = User.objects.create_user(first_name =cd['first_name'], last_name = cd['last_name']
+			,password = cd['password'],email = cd['email'],username = cd['email'])
 			user.save()
 			login(request, user)
 			messages.success(request, 'you registered successfully', 'success')
 			return redirect('index')
 	else:
 		form = UserRegistrationForm()
-		print("Whereeeeee")
 	return render(request, 'users/registration.html', {'form':form})
 
 
+def user_dasshboard(request):
+	"""
+	if the user is sign in, shows his/her dashboard,else redirect the user to login page 
+	"""
+	if request.user.is_authenticated:
+		if request.method =='POST':
+			user_form = UserProfileInfo( request.POST,instance=request.user)
+			
+			if user_form.is_valid():
+				user_form.save()
+				messages.success(request, 'اطلاعات شما با موفقیت ذخیره شد', 'success')
+		user_form = UserProfileInfo(instance=request.user)
+		return render(request,'users/userdashboard.html',{'user_form':user_form})
+	return redirect('login')
+
+@login_required
+def add_new_address(request):
+	addresses = Customer.objects.filter(address__is_default=True).values_list('address',flat=True)
+	print('addreses:',addresses)
+	if request.method =='POST':
+		user_address = AddUserAddresForm(request.POST)
+	user_address = AddUserAddresForm()
+	return render(request,'users/addaddress.html',{'user_address':user_address,'addresses':addresses})
+
+@login_required
+def user_order_history(request):
+	"""
+	shows the user order history in user dashboard
+
+	"""
+	if request.user.is_authenticated:
+		return render(request,'users/order_history.html',{})
+
+ 

@@ -11,9 +11,7 @@ class Cart(object):
         """
         self.session = request.session
         cart = self.session.get(settings.CART_SESSION_ID)
-        print('cart',cart)
         if not cart:
-            
             cart = self.session[settings.CART_SESSION_ID] = {} # save an empty cart in the session
         self.cart = cart
         self.discount_id = self.session.get('discount_id') # store current applied coupon
