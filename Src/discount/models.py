@@ -10,6 +10,7 @@ class Discount(models.Model):
 
 
     class Meta:
+        ordering=['-expired_date']
         verbose_name = 'تخفیف'
         verbose_name_plural = 'تخفیف ها'
 

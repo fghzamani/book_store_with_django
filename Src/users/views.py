@@ -70,8 +70,12 @@ def add_new_address(request):
 	addresses = Address.objects.get(customer=request.user,is_default=True)
 	if request.method =='POST':
 		user_address = AddUserAddresForm(request.POST)
+		
 		if user_address.is_valid():
 			cd=user_address.cleaned_data
+			user_other_addresses=Address.objects.exclude(postal_code__exact=cd['postal_code'])
+			user_other_addresses.is_default=False
+			# user_other_addresses.save()
 			Address.objects.create(address=cd['address'],city=cd['city'],postal_code=cd['postal_code'],customer=request.user)
 			messages.success(request,'آدرس جدید با موفقیت ذخیره شد','success')
 	user_address = AddUserAddresForm()

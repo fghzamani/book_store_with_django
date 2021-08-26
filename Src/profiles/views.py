@@ -36,7 +36,7 @@ class NewCategoryView(CreateView):
     def get_success_url(self):
         return reverse_lazy('staff_profile')
 
-class StaffProfileView(ListView):
+class StaffProfileView(TemplateView):
     model = Staff
     template_name='profiles/staffprofile_home.html'
 

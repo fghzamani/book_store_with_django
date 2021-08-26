@@ -5,11 +5,10 @@ from .models import Book,Category,Coupon
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_filter = ("category", )
-
+    search_fields = ("author__startswith", )
 
 @admin.register(Coupon)
 class CouponAdmin(admin.ModelAdmin):
     list_filter =("coupon_type",)
-
 
 admin.site.register(Category)
