@@ -43,16 +43,7 @@ class BookDetailView(DetailView):
         context = super(BookDetailView, self).get_context_data(**kwargs)
         context['form'] = CartAddProductForm(initial={'book': self.object})
         return context
-    def dispatch(self,request,*args,**kwargs):
-        # print("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN")
-        form = CartAddProductForm(request.POST)
-        # print('FORM',form)
-        if form.is_valid():
-            cd = form.cleaned_data
-            quantity=cd['quantity']
-            print('******************************')
-            print(quantity)
-        return super(BookDetailView, self).dispatch(request, *args, **kwargs)
+  
     
     
     
@@ -69,11 +60,7 @@ class CategoryListView(ListView):
 class CategoryDetailView(DetailView):
     model = Category
     template_name = 'bookshop/category_detail.html' 
-    def get_context_data(self,**kwargs):
-        context = super(CategoryDetailView,self).get_context_data(**kwargs)
-        context['cat_book_list'] = Category.objects.get_all_book()
-        print(context)
-        return context  
+  
 
 class SearchList(ListView):
     model = Book

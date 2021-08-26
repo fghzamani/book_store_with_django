@@ -9,7 +9,7 @@ class UserCreationForm(forms.ModelForm):
 
 	class Meta:
 		model = User
-		fields = ('email','address')
+		fields = ('email','password')
 
 	def clean_password2(self):
 		cd = self.cleaned_data
@@ -69,6 +69,6 @@ class UserProfileInfo(forms.ModelForm):
 class AddUserAddresForm(forms.ModelForm):
 	class Meta:
 		model = Address
-		fields =['city','Address']
+		fields =['city','address','postal_code']
 
 

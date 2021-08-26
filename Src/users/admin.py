@@ -6,7 +6,7 @@ from .models import Customer,Address,Staff,User
 # admin.site.register(User,UserAdmin)
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    fields = ('email','address','first_name','last_name','password', 'date_joined')
+    fields = ('email','first_name','last_name','password', 'date_joined')
     readonly_fields = [
         'date_joined','last_login'
     ]

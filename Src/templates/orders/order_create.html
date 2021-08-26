@@ -72,10 +72,10 @@
                     </div> -->
                     <div>
                         <h3>آدرس ها</h3>
-                        {%  if request.user.address.is_default %}
-                            <p>{{request.user.address.city}}</p>
-                            <p>{{request.user.address.Address}}</p>
-                            <p>{{request.user.address.postal_code}}</p>
+                        {%  if customer_address %}
+                            <p>{{customer_address.city}}</p>
+                            <p>{{customer_address.address}}</p>
+                            <p>{{customer_address.postal_code}}</p>
                         {%  endif %}
                         
                         <h4>مشخصات</h4>

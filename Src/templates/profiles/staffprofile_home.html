@@ -1,0 +1,22 @@
+{% extends 'profiles/staffbase.html' %}
+{% load static %}
+{% block content %}
+                    <div class='container'>
+                        <div class='col'>
+                            <div class="col align-self-center">
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <h3 class='text-right' >این صفحه مخصوص کارکنان فروشگاه است</h3>
+                                <h5><a href="{% url 'category_new' %}">  افزودن دسته بندی جدید</h5></a>
+                            </div>
+                        <div class='col align-self-center'>
+                            <img src="{% static 'bookshop/images/books.jpg' %}"  width="650" height="550" alt="" >
+                        </div> 
+                         
+                        </div>
+                    </div>
+        
+
+{% endblock %}

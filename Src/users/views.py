@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import UserLoginForm, UserRegistrationForm,UserProfileInfo,AddUserAddresForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import User,Customer
+from .models import User,Customer,Address
 from django.contrib.auth.decorators import login_required
 
 def user_login(request):
@@ -66,11 +66,16 @@ def user_dasshboard(request):
 
 @login_required
 def add_new_address(request):
-	addresses = Customer.objects.filter(address__is_default=True).values_list('address',flat=True)
-	print('addreses:',addresses)
+
+	addresses = Address.objects.get(customer=request.user,is_default=True)
 	if request.method =='POST':
 		user_address = AddUserAddresForm(request.POST)
+		if user_address.is_valid():
+			cd=user_address.cleaned_data
+			Address.objects.create(address=cd['address'],city=cd['city'],postal_code=cd['postal_code'],customer=request.user)
+			messages.success(request,'آدرس جدید با موفقیت ذخیره شد','success')
 	user_address = AddUserAddresForm()
+	
 	return render(request,'users/addaddress.html',{'user_address':user_address,'addresses':addresses})
 
 @login_required

@@ -7,10 +7,10 @@ from discount.models import Discount
 
 class Order(models.Model):
    
-    customer = models.ForeignKey(Customer,on_delete = models.DO_NOTHING , related_name='invoices')
+    customer = models.ForeignKey(Customer,on_delete = models.CASCADE , related_name='invoices')
     state = models.BooleanField(default = False) # shows the state of order(false for not paid and true for paid and finished orders)
     created_date = models.DateTimeField(auto_now_add=True)
-    billing_address = models.ForeignKey(Address,on_delete=models.CASCADE,related_name='address')
+    billing_address = models.ForeignKey(Address,on_delete=models.CASCADE,related_name='add')
     total_price = models.BigIntegerField()
     discount = models.ForeignKey(Discount,on_delete= models.DO_NOTHING,blank = True,null=True)
      

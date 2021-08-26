@@ -2,13 +2,13 @@ from django.db import models
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-class CategoryManager(models.Manager):
-    """
-        manager for return all books in each category
+# class CategoryManager(models.Manager):
+#     """
+#         manager for return all books in each category
 
-    """
-    def get_all_book(self):
-        return self.book.all()
+#     """
+#     def get_all_book(self):
+#         return self.book.all()
 
 
 
@@ -88,7 +88,7 @@ class Book(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=200,db_index=True)
     slug = models.SlugField(max_length=200,unique=True)
-    objects = CategoryManager()
+    # objects = CategoryManager()
     class Meta:
         ordering = ['name']
         verbose_name = 'دسته بندی'

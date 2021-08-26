@@ -1,0 +1,15 @@
+{% extends 'profiles/staffbase.html' %}
+
+{% block content %}
+    <div class="container"></div>
+    <br>
+    <br>
+    <h1 class="text-right">حذف کتاب</h1>
+        <div class="card" style="width: 30%;">
+            <form action="" method="post">{% csrf_token %}
+                <p>{{ book.title }}  از حذف کتاب مطمئنید؟ </p>
+                
+                <button class="btn btn-danger ml-2" type="submit">حذف</button>
+            </form>
+        </div>
+{% endblock content %}

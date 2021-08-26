@@ -1,0 +1,29 @@
+{% extends 'profiles/staffbase.html' %}
+{% block title %}کتاب ها{% endblock title %}
+{% block content %}
+    
+    {% for object in object_list %}
+    
+    <div class="container mt-3" style="width: 30%;">   
+        
+        <div class="card bg-dark ">
+            <div class="card-header bg-light ">
+                <a style="color: black;" href="{% url 'book_detail' object.pk %}"><span class="font-weight-bold">{{ object.title }} | {{object.author}}</span> </a>&middot;
+                <span class="text-muted">{{ object.price }}</span>
+                
+            </div>
+            <div class="card-body">
+               <span>موجودی فعلی</span> {{ object.inventory }} عدد
+            </div>
+            <div class="card-footer text-center text-muted">
+                <a href="{% url 'book_edit' object.pk %}">ویرایش</a> |
+                <a href="{% url 'book_delete' object.pk %}">حذف</a>
+            </div>
+        </div>
+    </div> 
+    
+    <br />
+    {% endfor %}
+    
+   
+{% endblock content %}

@@ -1,0 +1,9 @@
+{% extends 'profiles/staffbase.html' %}
+{% block content %}
+    <h1>ویرایش</h1>
+    <hr>
+    <form action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-info ml-2" type="submit">ثبت</button>
+    </form>
+{% endblock content %}

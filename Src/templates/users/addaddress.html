@@ -4,18 +4,24 @@
 {% block content %}
     <div class="container text-right">
         {% if addresses %}
-            {% for ad in addresses %}
-                <div class="col-sm-6">
+                <h4>نشانی فعلی</h4>
+                <div class="row">
                     <div class="card">
                         <div class="card-body">
-                            <p>State: {{ad.city}}</p>
-                            <h3>Address {{ad.Address}}</h3>  
+                            <p class="card">استان: {{addresses.city}}</p>
+                            <p class="card">نشانی:  {{addresses.Address}}</p>  
+                            <p class="card"> کد پستی : {{addresses.postal_code}}</p>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
+         
         {% endif %}
     </div>
         <!-- <h3 class="pt-1 pr-5">ایجاد آدرس جدید</h3> -->
         <hr>
+        <form class="form-group" method="post">
+            {% csrf_token %}
+            {{user_address.as_p}}
+            <button  class = "btn bg-primary"type='submit'>ایجاد آدرس</button>
+        </form>
 {% endblock %}

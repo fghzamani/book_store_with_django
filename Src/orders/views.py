@@ -4,7 +4,7 @@ from .models import Orderdetail,Order
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import get_object_or_404
 from .models import Order
-from users.models import Customer
+from users.models import Customer ,Address
 from django.contrib.auth.decorators import login_required
 
 def order_create(request):
@@ -17,17 +17,19 @@ def order_create(request):
         
         if request.method == 'GET':
             customer = request.user
+            customer_address = Address.objects.get(customer=request.user,is_default=True)
+            print(customer_address)
             if len(cart) != 0:
                 if cart.discount:
                     
                     discount = cart.discount
-                    
-                    order = Order.objects.create(customer = customer,discount=discount,billing_address=customer.address,
+                   
+                    order = Order.objects.create(customer = customer,discount=discount,billing_address=customer_address,
                     total_price= cart.get_total_price_after_discount())
                     
                 
                 else:
-                    order = Order.objects.create(customer = customer,billing_address=customer.address,
+                    order = Order.objects.create(customer = customer,billing_address=customer_address,
                     total_price= cart.get_total_price_after_discount()) 
                                 
                 for item in cart:
@@ -44,7 +46,7 @@ def order_create(request):
             
             
             
-            return render(request,'orders/order_create.html',{'cart': cart})
+            return render(request,'orders/order_create.html',{'cart': cart ,'customer_address':customer_address})
     return redirect('login')
     
    
