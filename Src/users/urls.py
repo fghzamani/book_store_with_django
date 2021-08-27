@@ -7,7 +7,9 @@ urlpatterns = [
     path('register',views.user_register,name='register'),
     path('login',views.user_login,name='login'),
     path('dashboard/',views.user_dasshboard,name='dashboard'),
+    path('personal/info/',views.user_update_info,name='change info'),
     path('dashboard/addreses/',views.add_new_address,name = 'user addresses'),
+    path('dashboard/orders/history/',views.user_order_history,name='order history'),
     path('logout/',views.user_logout,name='logout'),
 
     # urls for change password

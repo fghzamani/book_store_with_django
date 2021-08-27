@@ -69,6 +69,6 @@ class UserProfileInfo(forms.ModelForm):
 class AddUserAddresForm(forms.ModelForm):
 	class Meta:
 		model = Address
-		fields =['city','address','postal_code']
+		fields =['city','address','postal_code','is_default']
 
 

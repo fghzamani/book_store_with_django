@@ -84,7 +84,7 @@ class Address(models.Model):
     city = models.CharField(max_length=50,choices = CITY_CHOICE)
     address = models.TextField(max_length=1000)
     postal_code = models.CharField(max_length=20)
-    is_default = models.BooleanField(default=True)
+    is_default = models.BooleanField(default=False)
     customer = models.ForeignKey(Customer,on_delete=models.CASCADE)
 
     class Meta:

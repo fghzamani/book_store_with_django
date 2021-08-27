@@ -24,7 +24,7 @@ class Book(models.Model):
     category = models.ManyToManyField('Category',related_name='book')
     publisher = models.CharField(max_length=200,blank=True,null=True)
     coupon = models.ForeignKey('Coupon',on_delete=models.SET_NULL, blank=True, null=True,related_name='coupon')
-    
+    number_of_sell=models.IntegerField(default=0)
     class Meta:
         ordering = ('-created_date',)
         verbose_name = 'کتاب'
