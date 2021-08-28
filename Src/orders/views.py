@@ -34,7 +34,9 @@ def order_create(request):
                                 
                 for item in cart:
                     Orderdetail.objects.create(order=order,book=item['book'],unit_price=item['price'],quantity=item['quantity'])
-                    
+                    item['book'].number_of_sell += item['quantity']
+                    item['book'].save()
+                    print('num',item['book'].number_of_sell)
                 
                 order.state =True
                 order.save()

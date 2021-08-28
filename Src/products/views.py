@@ -11,7 +11,7 @@ class HomeView(TemplateView):
     def get_context_data(self,**kwargs):
         context = super(HomeView,self).get_context_data(**kwargs)
         context['newbook_list'] = Book.objects.all()[:4]
-        # print(context)
+        context['best_seller'] = Book.objects.all().order_by('-number_of_sell')[:4]
         return context
 
 

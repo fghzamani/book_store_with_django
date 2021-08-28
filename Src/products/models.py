@@ -11,7 +11,12 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 #         return self.book.all()
 
 
-
+class BestSellerManager(models.Manager):
+    """
+    this manger is for returning 5 books that has been sold out the most!
+    """
+    def best_seller_books(self):
+        return self.objects.all().order_by('-number_of_sell')[:3]
 class Book(models.Model):
     
     title = models.CharField(max_length=200)
@@ -25,6 +30,7 @@ class Book(models.Model):
     publisher = models.CharField(max_length=200,blank=True,null=True)
     coupon = models.ForeignKey('Coupon',on_delete=models.SET_NULL, blank=True, null=True,related_name='coupon')
     number_of_sell=models.IntegerField(default=0)
+    objects = BestSellerManager()
     class Meta:
         ordering = ('-created_date',)
         verbose_name = 'کتاب'
