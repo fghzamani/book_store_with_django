@@ -1,41 +1,65 @@
 {% extends 'users/userdashboard.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 <title>{% block title %} ثبت نام | کتاب فروشی{% endblock%}</title>
 {% block content %}
-    <div class="container text-right">
-        {% if address %}
-                <h4>نشانی فعلی</h4>
-                <div class="row">
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="card">استان: {{address.city}}</p>
-                            <p class="card">نشانی:  {{address.address}}</p>  
-                            <p class="card"> کد پستی : {{address.postal_code}}</p>
-                        </div>
-                    </div>
-                </div>
-         
-        {% endif %}
-        <hr>
-        <h3>سایر آدرس های شما</h3>
-                
-        {%  for ad in addresses%}
-                <div class="  row">
-                    <div class="card ">
-                        <div class="card-body">
-                            <p class="card">استان: {{ad.city}}</p>
-                            <p class="card">نشانی:  {{ad.address}}</p>  
-                            <p class="card"> کد پستی : {{ad.postal_code}}</p>
-                        </div>
-                    </div>
-                </div>
-        {% endfor %}
+    <div class="container">
+        <div class="ps-content pt-80 pb-80">
+            <div class="ps-container">
+                <div class="ps-cart-listing">
+                    <table class="table ps-cart__table  text-right">
+                        <thead >
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>همه ی آدرس های من</th>
+                                
+                            </tr>
+                        </thead>
+    
+                        <tbody>
+                            
+                            {% for ad in addresses %}
+                              
+                                    <tr>
+                                     
+                                        <td>
+                                            <br> {{ad.city}} {{ad.address}}</td>
+                                        <td>
+                                            <form action="{% url 'address_remove' ad.id %}" method="post">
+                                                <button class="ps-remove"></button>
+                                                {% csrf_token %}
+                                            </form>
+                                            
+                                        </td>
+                                    </tr>
+                               
+                            {% endfor %}
+                            
+                        
+                        </tbody>
+                    </table>
+                    
+            <hr>
+            <!-- <h3 class="text-right">سایر آدرس های شما</h3> 
+                    <input type="radio" onchange='this.form.submit();' id="name1"  name="name1" value="1">
+                    <label for="html">{{ad.city}} <span>{{ad.address}}</span></label><br></td>
+            <form action="{% url 'default_add' %}" method="POST">
+                <p>لطفا آدرس مورد نظر خود را انتخاب کنید</p>
+                {% csrf_token %}
+                {%  for ad in addresses%}
+                  <input type="radio" id="html" name="addr" value="{{ad.id}}">
+                  <label for="html">{{ad.city}} <span>{{ad.address}}</span></label><br>
+                {% endfor %}
+                <input type="submit" value="Submit">
+            </form> -->
+        </div>
+            <h3 class=" card bg-light pt-1 pr-5 text-center">ایجاد آدرس جدید</h3>
+            
+            <form class="form-group" method="post">
+                {% csrf_token %}
+                {{user_address|crispy}}
+                <button  class = "btn bg-primary"type='submit'>ایجاد آدرس</button>
+            </form>
     </div>
-        <!-- <h3 class="pt-1 pr-5">ایجاد آدرس جدید</h3> -->
-        <hr>
-        <form class="form-group" method="post">
-            {% csrf_token %}
-            {{user_address.as_p}}
-            <button  class = "btn bg-primary"type='submit'>ایجاد آدرس</button>
-        </form>
 {% endblock %}

@@ -12,6 +12,7 @@ class HomeView(TemplateView):
         context = super(HomeView,self).get_context_data(**kwargs)
         context['newbook_list'] = Book.objects.all()[:4]
         context['best_seller'] = Book.objects.all().order_by('-number_of_sell')[:4]
+
         return context
 
 
@@ -25,23 +26,18 @@ class BookListView(ListView):
         print(context)
         return context
     
-    # def get(self,*args,**kwargs):
-    #     if Book.get_coupon_type=='c':
-    #         price_ = Book.apply_cash_coupon(*args)
-    #     elif Book.get_coupon_type =='p':
-    #         price_ = Book.apply_percent_coupon(*args)
-    #     return price_
- 
-    
-    
-
-
 class BookDetailView(DetailView): 
     model = Book
     template_name = 'bookshop/book_detail.html'
     def get_context_data(self, **kwargs):
         context = super(BookDetailView, self).get_context_data(**kwargs)
         context['form'] = CartAddProductForm(initial={'book': self.object})
+        context['discount_price'] = self.object.get_discounted_price()
+        if self.object.price == self.object.get_discounted_price():
+            context['isDiscounted'] = False
+        else:
+            context['isDiscounted'] = True
+
         return context
   
     

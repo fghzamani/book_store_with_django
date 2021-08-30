@@ -9,6 +9,8 @@ urlpatterns = [
     path('dashboard/',views.user_dasshboard,name='dashboard'),
     path('personal/info/',views.user_update_info,name='change info'),
     path('dashboard/addreses/',views.add_new_address,name = 'user addresses'),
+    path('remove/<int:address_id>/', views.remove_address, name='address_remove'),
+    path('default/address/', views.change_default_address, name='default_add'),
     path('dashboard/orders/history/',views.user_order_history,name='order history'),
     path('logout/',views.user_logout,name='logout'),
 

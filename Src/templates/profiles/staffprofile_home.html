@@ -1,7 +1,27 @@
 {% extends 'profiles/staffbase.html' %}
 {% load static %}
 {% block content %}
-                    <div class='container'>
+                {% if request.user.is_staff %}
+                <div class="container" class="weidth:100%">
+                    <div class="row">
+                      <div class="col" style="margin-top: 15px;">
+                        <img src="{% static 'bookshop/images/books.jpg' %}"  width="700" height="500" alt="" >
+                      </div>
+                      <div class="col" style="margin-top: 15px;">
+                        <h3 class='text-right' >این صفحه مخصوص کارکنان فروشگاه است</h3>
+                        <h5><a href="{% url 'category_new' %}">  افزودن دسته بندی جدید</h5></a>
+                        <h5><a href="{% url 'admin report' %}">  گزارش های فروشگاه</h5></a>
+
+                      </div>
+                    </div>
+
+                </div>
+                <!-- <div class="row"></div>
+                    <div class='col ' style="margin-top: 15px;">
+                        <img src="{% static 'bookshop/images/books.jpg' %}"  width="700" height="500" alt="" >
+                    </div> 
+                   
+                        
                         <div class='col'>
                             <div class="col align-self-center">
                                 <br>
@@ -10,13 +30,12 @@
                                 <br>
                                 <h3 class='text-right' >این صفحه مخصوص کارکنان فروشگاه است</h3>
                                 <h5><a href="{% url 'category_new' %}">  افزودن دسته بندی جدید</h5></a>
+                                <h5><a href="{% url 'admin report' %}">  گزارش های فروشگاه</h5></a>
+
                             </div>
-                        <div class='col align-self-center'>
-                            <img src="{% static 'bookshop/images/books.jpg' %}"  width="650" height="550" alt="" >
-                        </div> 
+                    -->
                          
-                        </div>
-                    </div>
-        
+                  
+                {% endif %}
 
 {% endblock %}

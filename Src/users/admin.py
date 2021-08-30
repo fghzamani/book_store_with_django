@@ -23,4 +23,9 @@ class StaffAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         return User.objects.filter(is_staff=True)
 
-admin.site.register(Address)
+# admin.site.register(Address)
+@admin.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    
+    list_display = ('city','address','postal_code')
+    

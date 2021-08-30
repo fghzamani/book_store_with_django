@@ -39,7 +39,14 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
-         
+    def get_discounted_price(self):
+        if self.get_coupon_type() == 'c':
+            return self.price - self.coupon.get_cash_amount()
+        elif self.get_coupon_type() == 'p':
+            return self.price - self.price*self.coupon.get_percent_amount()
+        else:
+            return self.price
+
     def get_absolute_url(self): 
         """
         returning absolute url of each book
@@ -73,18 +80,16 @@ class Book(models.Model):
         apply the amount of cash coupon on book price
 
         """
-        self.price = self.price - cash_amount
-        return self.price
+        return self.price - cash_amount
 
     def apply_percent_coupon(self):
         """
         apply the percent coupon on price (takhfife darsadi)
         
         """
-        self.price = self.price - self.price*self.coupon.percent_amount
-        return self.price
+        return self.price - self.price*self.coupon.percent_amount
     
-    @property
+    # @property
     def get_coupon_type(self):
         if self.coupon:
             return self.coupon.coupon_type
@@ -125,6 +130,10 @@ class Coupon(models.Model):
         verbose_name = " کوپن"
         verbose_name_plural = 'کوپن ها'
     
+    def get_cash_amount(self):
+        return self.cash_amount
     
+    def get_percent_amount(self):
+        return self.percent_amount
 
     

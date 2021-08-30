@@ -51,7 +51,7 @@ class Cart(object):
             book_id = str(book.id)
             if book_id not in self.cart:
                 self.cart[book_id] = {'quantity': 0,
-                                        'price': book.price}
+                                        'price': book.get_discounted_price()}
             if override_quantity:
                 self.cart[book_id]['quantity'] = quantity
             else:
@@ -112,10 +112,4 @@ class Cart(object):
             return self.discount.amount *  self.get_total_price()    
        
     
-    # def checking_inventory(request_number):
-    #     """
-    #     request_number : the number of order item
-    #     method for checking the ordered number of book with it's inventory
-    #     """
-    #     if Book.has_inventory and  request_number < Book.inventory:
-    #         return True
+   

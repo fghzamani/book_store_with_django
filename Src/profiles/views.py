@@ -4,40 +4,91 @@ from users.models import Staff
 from products.models import Book,Category
 from .forms import AddNewBook
 from django.urls import reverse_lazy,reverse
+from discount.models import Discount
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.views import redirect_to_login
+from django.shortcuts import redirect
+from users.models import Staff
 
-class BookCreateView(CreateView):
+
+class UserAccessMixin(PermissionRequiredMixin):
+    def dispatch(self,request,*args,**kwargs):
+        if (not self.request.user.is_authenticated):
+            return redirect_to_login(self.request.get_full_path(),self.get_login_url(),self.get_redirect_field_name())
+        if self.request.user.is_staff==False:
+            return redirect('/')
+        return super(UserAccessMixin,self).dispatch(request,*args,**kwargs)
+
+class BookCreateView(UserAccessMixin,CreateView):
     model=Book
+    raise_exception=True
+    permission_required = ['book.add_book']
     template_name='profiles/add_new_book.html'
     fields = ['title','author','price','inventory','cover','description','category','publisher']
     def get_success_url(self):
         return reverse('staff_profile')
 
-class BookUpdateView(UpdateView):
+class BookUpdateView(UserAccessMixin,UpdateView):
     model=Book
+    raise_exception=True
+    permission_required = ['book.change_book']
     fields = ['title','author','price','inventory','cover','description','category','publisher']
     template_name = 'profiles/book_edit.html'
     def get_success_url(self):
         return reverse('staff_profile')
 
-class BookDeleteView(DeleteView):
+class BookDeleteView(UserAccessMixin,DeleteView):
     model=Book
+    permission_required = ['book.delete_book']
     template_name = 'profiles/book_delete.html'
     def get_success_url(self):
         return reverse_lazy('staff_profile')
 
-class BookListView(ListView):
+class BookListView(UserAccessMixin,ListView):
     model=Book
     template_name = 'profiles/book_list.html'
-
-class NewCategoryView(CreateView):
+    permission_required = ['book.view_book']
+class NewCategoryView(UserAccessMixin,CreateView):
     model=Category
+    permission_required = []
     template_name = 'profiles/new_category.html'
     fields=['name','slug']
     def get_success_url(self):
         return reverse_lazy('staff_profile')
 
-class StaffProfileView(TemplateView):
+class NewCouponView(UserAccessMixin,CreateView):
+    model = Discount
+    permission_required = []
+    template_name = 'profiles/add_new_coupon.html'
+    fields=['code','amount','expired_date','active']
+    def get_success_url(self):
+        return reverse('staff_profile')
+class CouponListView(UserAccessMixin,ListView):
+    permission_required = []
+    model = Discount
+    template_name = 'profiles/allcoupons.html'
+   
+
+class StaffProfileView(UserAccessMixin,TemplateView):
+    permission_required = []
     model = Staff
     template_name='profiles/staffprofile_home.html'
+    
+class StoreReportAdmin(TemplateView):
+    model = None
+    template_name = 'profiles/adminreport.html'
+    def dispatch(self,request,*args,**kwargs):
+        if (not self.request.user.is_authenticated):
+            return redirect_to_login(self.request.get_full_path(),self.get_login_url(),self.get_redirect_field_name())
+        if self.request.user.is_superuser==False:
+            return redirect('/')
+        return super(StoreReportAdmin,self).dispatch(request,*args,**kwargs)
 
-
+class NewStaffCreateView(UserAccessMixin,CreateView):
+    model=Staff
+    raise_exception=True
+    permission_required = ['book.add_book']
+    template_name='profiles/add_new_book.html'
+    fields = ['email','password','first_name','last_name']
+    def get_success_url(self):
+        return reverse('staff_profile')

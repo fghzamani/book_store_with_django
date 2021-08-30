@@ -86,7 +86,7 @@ class Address(models.Model):
     postal_code = models.CharField(max_length=20)
     is_default = models.BooleanField(default=False)
     customer = models.ForeignKey(Customer,on_delete=models.CASCADE)
-
+    is_active = models.BooleanField(default= True)
     class Meta:
         verbose_name = 'نشانی'
         verbose_name_plural = 'نشانی ها'

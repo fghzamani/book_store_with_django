@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'discount',
     'orders',
     'profiles',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -143,3 +145,4 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 CART_SESSION_ID = 'cart'
 AUTH_USER_MODEL = 'users.User'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

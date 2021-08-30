@@ -67,6 +67,7 @@ class UserProfileInfo(forms.ModelForm):
 		fields = ['first_name','last_name','email']
 
 class AddUserAddresForm(forms.ModelForm):
+	
 	class Meta:
 		model = Address
 		fields =['city','address','postal_code','is_default']

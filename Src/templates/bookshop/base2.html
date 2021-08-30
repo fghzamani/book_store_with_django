@@ -48,7 +48,7 @@
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
                             <div class="header__actions">
                                
-                                <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account<i class="fa fa-angle-down"></i></a>
+                                <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">حساب کاربری<i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="{% url 'dashboard'%}">پروفایل</a></li>
                                         <li><a href="{% url 'logout' %}">خروج</a></li>
@@ -96,24 +96,27 @@
                     <div class="right">
                         
                         <div class="menu-toggle"><span></span></div>
-                        <div class="ps-cart"><a class="ps-cart__toggle" href="#"><span><i></i></span><i class="ps-icon-cart"></i></a>
+                        <div class="ps-cart"><a class="ps-cart__toggle" href="{%  url 'cart_detail' %}"><span><i></i></span><i class="ps-icon-cart"></i></a>
                             <div class="ps-cart__listing">
+                                
                                 
                                 <div class="ps-cart__content">
                                     <div class="ps-cart-item">
-                                        <div class="ps-cart-item__thumbnail"><a href="#"></a><img src="#" alt=""></div>
+                                        <div class="ps-cart-item__thumbnail"><a href="{{ product.get_absolute_url }}"></a><img src="{{product.image.url}}" alt=""></div>
                                         <div class="ps-cart-item__content">
-                                           <a class="ps-cart-item__title" href="#"><small> <br> Single Price </small></a>
-                                           <p> Total Quantity: x<span> <br> قیمت کل </span></p>
+                                           <a class="ps-cart-item__title" href="{{ product.get_absolute_url }}"><small>{{ product.name }} <br> Single Price ${{ item.price }}</small></a>
+                                           
                                         </div>
                                         
                                     </div>
                                 </div>
                                 
+                
+                                
                                 
                                 <div class="ps-cart__total">
                                     
-                                    <p>Item Total:<span></span></p>
+                                    <p>سبد خرید <span></span></p>
                                 </div>
                                 
                                 

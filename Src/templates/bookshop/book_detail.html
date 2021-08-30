@@ -32,8 +32,11 @@
                     <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 ">
                         <div class="ps-product__info">
                             <h1 class = 'text-right'>{{ object.title }}</h1>
-                            
-                            <h3 class="ps-product__price "><span>$</span>{{object.price}}</h3>
+                            {%  if isDiscounted %}
+                                <h3 class="ps-product__price "><span>$</span><s>{{object.price}}</s> <span>{{discount_price}}</span></h3>
+                            {% else %}
+                                <h3 class="ps-product__price "><span>$</span>{{object.price}}</h3>
+                            {% endif %}
                             <p class="ps-product__category "><h5> دسته بندی :</h5> <br> {% for category in object.category.all %} {{ category}} {% endfor %}</p>
                             <div class="ps-product__short-desc">
                                 <p class ='text-right'><h5> توضیحات :</h5> <br>{{ object.description }}</p>
