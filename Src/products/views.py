@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.views.generic import ListView,FormView, DetailView,CreateView,UpdateView , DeleteView,TemplateView
 from .models import Book,Category
 from django.db.models import Q
@@ -16,15 +16,12 @@ class HomeView(TemplateView):
         return context
 
 
-class BookListView(ListView):
-    model = Book
-    # paginate_by = 2
-    template_name = 'bookshop/book_list.html'
-    def get_context_data(self,**kwargs):
-        context = super(BookListView,self).get_context_data(**kwargs)
-        context['cat_list'] = Category.objects.all()
-        print(context)
-        return context
+# class BookListView(ListView):
+#     model = Book
+#     # paginate_by = 2
+#     template_name = 'bookshop/book_list.html'
+   
+    
     
 class BookDetailView(DetailView): 
     model = Book
@@ -80,5 +77,19 @@ class SearchList(ListView):
             results = Book.objects.none()
         return render(request,'bookshop/search.html',{'search':search,'results':results})
 
+def products(request,category_slug=None):
+    """
+    this function is used to show all books based on their categories
+
+    """
+    category = None
+    categories = Category.objects.all()
+    books = Book.objects.all()
+    if category_slug:
+        category = get_object_or_404(Category,slug=category_slug)
+        books = books.filter(category=category)
+    return render(request,'bookshop/book_list.html',{'category':category,
+                                                     'categories':categories,
+                                                     'books':books})
 
         

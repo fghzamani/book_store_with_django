@@ -17,8 +17,9 @@
 
                     <li {% if not category %} class="current" {% endif %}><a href="{% url 'book_list' %}" data-filter="*"> همه </a></li>
                     
-                    {% for c in cat_list %}
-                    <li {% if category.slug == c.slug %} class="current" {% endif %}><a href="{{ c.get_absolute_url }}" data-filter=".bracelets">{{ c.name }}</a></li>
+                    {% for c in categories %}
+                       
+                    <li class="current" ><a href="{{ c.get_absolute_url }}" data-filter=".bracelets">{{ c.name }}</a></li>
                     {% endfor %}
                     
                 </ul>
@@ -28,16 +29,17 @@
              <!-- products  -->
             <div class="ps-section__content">
                 <div class="row">
-                    {% for book in object_list %}
+                    <h1>{% if category %}{{ category.name }}{% else %} همه {% endif %}</h1>
+                    {% for b in books %}
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
                             <div class="ps-product--fashion">
-                                    <div class="ps-product__thumbnail"><a class="ps-product__overlay" href="{% url 'book_detail' book.pk %}"></a><img class="lazy" src="{% if book.cover %}{{ book.cover.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="">
+                                    <div class="ps-product__thumbnail"><a class="ps-product__overlay" href="{% url 'book_detail' b.pk %}"></a><img class="lazy" src="{% if b.cover %}{{ b.cover.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="">
                                         <ul class="ps-product__actions">
                                             
                                         </ul>
                                     </div>
-                                    <div class="ps-product__content"><a class="ps-product__title" href="{% url 'book_detail' book.pk %}">{{ book.title }}</a>
-                                        <p class="ps-product__price">${{ book.price }}</p>
+                                    <div class="ps-product__content"><a class="ps-product__title" href="{% url 'book_detail' b.pk %}">{{ b.title }}</a>
+                                        <p class="ps-product__price">${{ b.price }}</p>
                                     </div>
                             </div>
                         </div>

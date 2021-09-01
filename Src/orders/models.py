@@ -2,8 +2,13 @@ from django.db import models
 from users.models import Customer , Address
 from products.models import Book
 from discount.models import Discount
+from django.db.models.functions import TruncMonth
+from django.db.models import Count
 
 
+class OrderincomeManager(models.Manager):
+    def income(self):
+        return self.objects.annotate(month=TruncMonth('created')).values('month').annotate(c=Count('id')).values('month', 'c') 
 
 class Order(models.Model):
    
@@ -13,7 +18,7 @@ class Order(models.Model):
     billing_address = models.ForeignKey(Address,on_delete=models.CASCADE,related_name='add')
     total_price = models.BigIntegerField()
     discount = models.ForeignKey(Discount,on_delete= models.DO_NOTHING,blank = True,null=True)
-     
+    objects = OrderincomeManager()
     class Meta:
         ordering = ('-created_date',)
         verbose_name = 'سفارش'

@@ -22,56 +22,43 @@
         <link rel="stylesheet" href="{% static 'bookshop/plugins/bootstrap/dist/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'bookshop/plugins/owl-carousel/assets/owl.carousel.css' %}">
         <link rel="stylesheet" href="{% static 'bookshop/plugins/bootstrap-select/dist/css/bootstrap-select.min.css' %}">
-        <link rel="stylesheet" href="{% static 'bookshop/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css' %}">
-        <link rel="stylesheet" href="{% static 'bookshop/plugins/slick/slick/slick.css' %}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+        integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+        <!--Chartjs CDN-->
+        
         <!-- Custom-->
         <link rel="stylesheet" href="{% static 'bookshop/css/style.css' %}">
         <link rel="stylesheet" href="{% static 'bookshop/plugins/revolution/css/settings.css' %}">
         <link rel="stylesheet" href="{% static 'bookshop/plugins/revolution/css/layers.css' %}">
         <link rel="stylesheet" href="{% static 'bookshop/plugins/revolution/css/navigation.css' %}">
         <!-- bootstrap -->
-       
-
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         <title>{% block title %} BookShop {% endblock %}</title>
     </head>
     <body>
         <div class="header--sidebar"></div>
             <nav class="navigation bg-dark" style="height: 75px;">
-                <!-- <form class="navbar-form navbar-right">
-                    {% csrf_token %}
-                    <div class="form-group mr-1">
-                      <input type="text" class="form-control" placeholder="Search" style="height: 35px;">
-                    </div>
-                    <button type="submit" class="btn btn-default mr-2 btn-warning">جست و جو</button>
-                  </form> -->
+               
                 <div class="container-fluid">
                     <div class="left">
                         <div class="header__logo"><a class="ps-logo" href="{% url 'index' %}"><img src="{% static 'bookshop/images/logo.png' %}" alt=""></a></div>
                     </div>
                     <div class="center">
-                        <ul class="main-menu menu">
+                        <ul class="main-menu menu ">
                             <li  class="current-menu-item "><a  style="color:aliceblue ;"href="{%url 'staff_profile' %}">خانه</a></li>
                             <li><a style="color:aliceblue ;" href="{%  url 'book_new' %}">اضافه کردن کتاب جدید</a></li>
                             
                             <li><a  style="color:aliceblue ;"href="{% url 'new_coupon' %}">تعریف تخفیف کدی</a></li>
                             
-                            <!-- <li><a style="color:aliceblue ;"href="{% url 'store_books_list' %} ">لیست کتاب های فروشگاه</a></li> -->
-                            <!-- <li><a style="color:aliceblue ;"href="{% url 'store_books_list' %} ">لیست کد های تخفیف</a></li> -->
+                            <li><a style="color:aliceblue ;"href="{% url 'store_books_list' %} ">لیست کتاب های فروشگاه</a></li>
                             
-                            <li >
-                                
-                                <a style="color:aliceblue ;" href="#"  data-toggle="لیست" role="button" aria-haspopup="true" aria-expanded="false">لیست <span class="caret"></span></a><ul class="dropdown-menu" >
-                                <li><a href="#"> کتاب های فروشگاه </a></li>
-                                <li><a href="#">کد های تخفیف </a></li>
-                                <li><a href="#">+ دسته بندی جدید</a></li>
-                                <li><a href="#">خروج</a></li>
-                                
-                            </li>
                         </ul>
                     </div>
         </div>    
         {% block content %}
         {% endblock %}
+       
     </body>
 </html>   

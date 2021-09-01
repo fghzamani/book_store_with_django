@@ -85,12 +85,12 @@
                     </div>
                     <div class="center">
                         <ul class="main-menu menu">
-                            <li class="current-menu-item "><a href="{% url 'index' %}">نویسندگان</a></li>
-                            <li><a href="#">دسته بندی ها</a></li>
+                            <li class="current-menu-item "><a href="#">نویسندگان</a></li>
+                            <li><a href="{% url 'book_list' %}">دسته بندی ها</a></li>
                             
                             <li><a href="#">درباره ما</a></li>
                             
-                            <li><a href="#">خانه</a></li>
+                            <li><a href="{% url 'index' %}">خانه</a></li>
                         </ul>
                     </div>
                     <div class="right">
@@ -152,9 +152,9 @@
                                     <p>کرج، ایران</p>
                                 </div>
                                 <ul class="ps-social">
-                                    <li><a href="https://www.facebook.com/sk7698277"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="https://www.twitter.com/sk7698277"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="https://www.instagram.com/sk7698277"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="https://www.twitter.com/"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="https://www.instagram.com/fgh.zamani"><i class="fa fa-instagram"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -174,25 +174,25 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
                                     <div class="ps-widget ps-widget--footer widget widget_footer">
-                                        <h2 class="ps-widget__title">Customer Care</h2>
+                                        <h2 class="ps-widget__title">دسته بندی ها</h2>
                                         <ul class="ps-list--line">
-                                            <li><a href="#">My Account</a></li>
-                                            <li><a href="#">Track your Order</a></li>
-                                            <li><a href="#">Customer Service</a></li>
-                                            <li><a href="#">FAQs</a></li>
-                                            <li><a href="#">Product Support</a></li>
+                                            <li><a href="#">علمی</a></li>
+                                            <li><a href="#">علمی تخیلی</a></li>
+                                            <li><a href="#">تاریخی</a></li>
+                                            <li><a href="#">روان شناسی</a></li>
+                                            <li><a href="#">جنایی</a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
                                     <div class="ps-widget ps-widget--footer widget widget_footer">
-                                        <h2 class="ps-widget__title">Your Account</h2>
+                                        <h2 class="ps-widget__title">نویسندگان</h2>
                                         <ul class="ps-list--line">
-                                            <li><a href="#">Your account</a></li>
-                                            <li><a href="#">Newsletter</a></li>
-                                            <li><a href="#">Information</a></li>
-                                            <li><a href="#">Payment menthod</a></li>
-                                            <li><a href="#">Your wishlist</a></li>
+                                            <li><a href="#">جی کی رولینگ</a></li>
+                                            <li><a href="#">استفنی میر</a></li>
+                                            <li><a href="#">آلیسون ویر</a></li>
+                                            <li><a href="#">دن براون</a></li>
+                                            <li><a href="#">جفری یانگ</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -205,7 +205,7 @@
                 <div class="ps-container">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-                            <p class="text-left">&copy; Copyright  <span>2020</span></p>
+                            <p class="text-left">&copy; Copyright  <span>2021</span></p>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
                             <div class="ps-footer__payment-methods"><a href="#"><img src="{% static 'bookshop/images/payment-method/paypal.png' %}" alt=""></a><a href="#"><img src="{% static 'bookshop/images/payment-method/visa.png' %}" alt=""></a><a href="#"><img src="{% static 'bookshop/images/payment-method/master-card.png' %}" alt=""></a></div>

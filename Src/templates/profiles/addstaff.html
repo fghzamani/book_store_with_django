@@ -48,7 +48,8 @@
 <div class="">
     <h3 class=" card bg-light pt-1 pr-5 text-center">ایجاد کارمند جدید</h3>
     <form action="" method="post">
-        {{add_staff.as_p}}
+        {% csrf_token %}
+        {{ form.as_p }}
         <button class="btn btn-primary" type="submit">ایجاد </button>
     </form>
 

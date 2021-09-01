@@ -8,8 +8,9 @@ from discount.models import Discount
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.views import redirect_to_login
 from django.shortcuts import redirect
-from users.models import Staff
-
+from users.models import Staff ,Customer
+from orders.models import Order
+from django.db.models import Sum
 
 class UserAccessMixin(PermissionRequiredMixin):
     def dispatch(self,request,*args,**kwargs):
@@ -46,7 +47,7 @@ class BookDeleteView(UserAccessMixin,DeleteView):
 
 class BookListView(UserAccessMixin,ListView):
     model=Book
-    template_name = 'profiles/book_list.html'
+    template_name = 'profiles/books_list.html'
     permission_required = ['book.view_book']
 class NewCategoryView(UserAccessMixin,CreateView):
     model=Category
@@ -74,6 +75,8 @@ class StaffProfileView(UserAccessMixin,TemplateView):
     model = Staff
     template_name='profiles/staffprofile_home.html'
     
+
+    
 class StoreReportAdmin(TemplateView):
     model = None
     template_name = 'profiles/adminreport.html'
@@ -83,12 +86,21 @@ class StoreReportAdmin(TemplateView):
         if self.request.user.is_superuser==False:
             return redirect('/')
         return super(StoreReportAdmin,self).dispatch(request,*args,**kwargs)
-
+        
+    def get_context_data(self,**kwargs):
+        context = super(StoreReportAdmin,self).get_context_data(**kwargs)
+        context['books'] = Book.objects.all()
+        context['orders'] = Order.objects.all()
+        # context['incomes'] = Order.objects.filter().values('created_date').order_by('created_date').annotate(sum=Sum('total_price'))
+        context['incomes'] = Order.objects.all().aggregate(sum=Sum('total_price'))
+        context['order_num'] = Order.objects.all().count()
+        context['customers_num'] = Customer.objects.filter(is_staff=False).count()
+        return context
 class NewStaffCreateView(UserAccessMixin,CreateView):
     model=Staff
     raise_exception=True
-    permission_required = ['book.add_book']
-    template_name='profiles/add_new_book.html'
-    fields = ['email','password','first_name','last_name']
+    permission_required = ['staff.add_staff']
+    template_name='profiles/addstaff.html'
+    fields = ['email','password','first_name','last_name','username','is_staff']
     def get_success_url(self):
         return reverse('staff_profile')

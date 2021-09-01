@@ -107,6 +107,7 @@ def change_default_address(request):
 			ad.save()
 
 	return redirect('user addresses')
+
 @login_required
 def remove_address(request,address_id):
 	"""

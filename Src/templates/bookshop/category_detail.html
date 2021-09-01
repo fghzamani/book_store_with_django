@@ -1,9 +1,7 @@
 {% extends 'bookshop/base2.html' %}
 {% load static %}
 <title>{% block title %} Category Detail{% endblock%}</title>
+
 {% block content %}
-    <p style="text-decoration-style: none;" class="card"></p>><b> {{ category.name}}</b> </p>
-    {% for book in cat_book_list %}
-        {{book.title}}
-    {% endfor %}
+    <h1>{{ category.name}}</h1>
 {% endblock %}
