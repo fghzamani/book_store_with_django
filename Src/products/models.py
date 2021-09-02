@@ -2,18 +2,11 @@ from django.db import models
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-# class CategoryManager(models.Manager):
-#     """
-#         manager for return all books in each category
-
-#     """
-#     def get_all_book(self):
-#         return self.book.all()
 
 
 class BestSellerManager(models.Manager):
     """
-    this manger is for returning 5 books that has been sold out the most!
+    this manger is for returning 3 books that has been sold out the most!
     """
     def best_seller_books(self):
         return self.objects.all().order_by('-number_of_sell')[:3]

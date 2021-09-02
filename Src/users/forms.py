@@ -25,6 +25,10 @@ class UserCreationForm(forms.ModelForm):
 		return user
 
 class UserChangeForm(forms.ModelForm):
+	"""
+	form for password changing
+
+	"""
 	password = ReadOnlyPasswordHashField()
 
 	class Meta:
@@ -36,15 +40,23 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserLoginForm(forms.Form):
-	email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
-	password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
+	"""
+	form used in login page
+
+	"""
+	email = forms.EmailField(label = 'ایمیل',widget=forms.EmailInput(attrs={'class':'form-control'}))
+	password = forms.CharField(label = 'رمز عبور',widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
 
 class UserRegistrationForm(forms.Form):
-	email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control' ,'lable':'نام کاربری'}))
-	first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-	last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-	password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+	"""
+	[summary]
+
+	"""
+	email = forms.EmailField(label = 'ایمیل',widget=forms.EmailInput(attrs={'class': 'form-control'}))
+	first_name = forms.CharField(label = 'نام ',widget=forms.TextInput(attrs={'class':'form-control'}))
+	last_name = forms.CharField(label = 'نام خانوادگی',widget=forms.TextInput(attrs={'class':'form-control'}))
+	password = forms.CharField(label = 'رمز عبور',widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     
 	class Meta:
 		model = User
@@ -62,12 +74,18 @@ class UserRegistrationForm(forms.Form):
 
 
 class UserProfileInfo(forms.ModelForm):
+	"""
+	form for showing customer info
+	"""
 	class Meta:
 		model = Customer
 		fields = ['first_name','last_name','email']
 
 class AddUserAddresForm(forms.ModelForm):
-	
+	"""
+	form for adding new address for customer
+
+	"""
 	class Meta:
 		model = Address
 		fields =['city','address','postal_code','is_default']

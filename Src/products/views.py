@@ -6,6 +6,9 @@ from cart.forms import CartAddProductForm
 from django.views.generic.edit import FormMixin
 
 class HomeView(TemplateView):
+    """
+        this class is for rendering main page(index) of site
+    """
     model = Book
     template_name = 'bookshop/index.html' 
     def get_context_data(self,**kwargs):
@@ -24,6 +27,10 @@ class HomeView(TemplateView):
     
     
 class BookDetailView(DetailView): 
+    """
+    view the detail of every single book
+
+    """
     model = Book
     template_name = 'bookshop/book_detail.html'
     def get_context_data(self, **kwargs):
@@ -41,6 +48,10 @@ class BookDetailView(DetailView):
     
     
 class BookDetailForm(FormView,FormMixin):
+    """
+    form for changing the number of 
+
+    """
     template_name = 'bookshop/book_detail.html'
     form_class = CartAddProductForm
     success_url = '/cart/'

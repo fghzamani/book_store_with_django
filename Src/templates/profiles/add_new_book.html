@@ -2,10 +2,18 @@
 
 <title>{% block title %} Staff Profile | Add New Book{% endblock%}</title>
 {% block content %} 
-    <br>
-    <form  enctype ="multipart/form-data" action="#" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-success ml-2" type="submit">ذخیره</button>
-    </form>  
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+        
+        <br>
+        <div  class = "card-body" style ="width: 50%;">
+            <form  enctype ="multipart/form-data" action="#" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-success ml-2" type="submit">ذخیره</button>
+            </form>  
+        </div>
+    </main>
+
+   
 {% endblock %}

@@ -12,8 +12,10 @@
                     <h1 style="margin-top:10%;">ثبت نام</h1><br>
                     <form class="ps-form--contact" action="{% url 'register' %}" method="post">
                         {% csrf_token %}
-                        {{form}}
+                        {{form }}
+
                         <div class="form-group">
+                            <br>
                             <button style="border-radius: 10px;"  action = "{% url 'index' %}" type ='submit'class="ps-btn pl-60 pr-60">ثبت نام </button>
                         </div>
                         <div class="form-group">

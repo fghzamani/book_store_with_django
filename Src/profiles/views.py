@@ -23,16 +23,17 @@ class UserAccessMixin(PermissionRequiredMixin):
 class BookCreateView(UserAccessMixin,CreateView):
     model=Book
     raise_exception=True
-    permission_required = ['book.add_book']
+    permission_required = []
+    form_class = AddNewBook
     template_name='profiles/add_new_book.html'
-    fields = ['title','author','price','inventory','cover','description','category','publisher']
+    # fields = ['title','author','price','inventory','cover','description','category','publisher']
     def get_success_url(self):
         return reverse('staff_profile')
 
 class BookUpdateView(UserAccessMixin,UpdateView):
     model=Book
     raise_exception=True
-    permission_required = ['book.change_book']
+    permission_required = []
     fields = ['title','author','price','inventory','cover','description','category','publisher']
     template_name = 'profiles/book_edit.html'
     def get_success_url(self):
@@ -40,7 +41,7 @@ class BookUpdateView(UserAccessMixin,UpdateView):
 
 class BookDeleteView(UserAccessMixin,DeleteView):
     model=Book
-    permission_required = ['book.delete_book']
+    permission_required = []
     template_name = 'profiles/book_delete.html'
     def get_success_url(self):
         return reverse_lazy('staff_profile')
@@ -48,7 +49,7 @@ class BookDeleteView(UserAccessMixin,DeleteView):
 class BookListView(UserAccessMixin,ListView):
     model=Book
     template_name = 'profiles/books_list.html'
-    permission_required = ['book.view_book']
+    permission_required = []
 class NewCategoryView(UserAccessMixin,CreateView):
     model=Category
     permission_required = []
