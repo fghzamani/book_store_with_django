@@ -15,7 +15,7 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer,on_delete = models.CASCADE , related_name='invoices')
     state = models.BooleanField(default = False) # shows the state of order(false for not paid and true for paid and finished orders)
     created_date = models.DateTimeField(auto_now_add=True)
-    billing_address = models.ForeignKey(Address,on_delete=models.CASCADE,related_name='add')
+    billing_address = models.ForeignKey(Address,on_delete=models.CASCADE,related_name='add',blank = True,null=True)
     total_price = models.BigIntegerField()
     discount = models.ForeignKey(Discount,on_delete= models.DO_NOTHING,blank = True,null=True)
     objects = OrderincomeManager()
@@ -32,7 +32,7 @@ class Order(models.Model):
 
 
 class Orderdetail(models.Model):
-    order = models.ForeignKey(Order,on_delete=models.PROTECT)
+    order = models.ForeignKey(Order,on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete =models.DO_NOTHING)
     unit_price = models.IntegerField()
     quantity =models.IntegerField(default=1)

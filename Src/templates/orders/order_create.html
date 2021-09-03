@@ -23,84 +23,105 @@
                               <label for="html">{{ad.city}} <span>{{ad.address}}</span></label><br>
                             {% endfor %}
                             <!-- <input type="submit" value="Submit"> -->
-                            <input type="radio" id="html" name="addr" value="new">
+                            <input type="radio" id="html" name="addr" value="new" checked="checked"  >
                             <label for="html">آدرس جدید </label><br>
-                            <h3 class=" card bg-light pt-1 pr-5 text-center">ایجاد آدرس جدید</h3>
-                            <div class="form-group form-group--inline">
-                                <label>استان<span>*</span>
-                                </label>
-                                <div class="form-group__content">
-                                    <input class="form-control" type="text" name="state" >
+                            <div id ='input_new_add' >
+                                <h3 class=" card bg-light pt-1 pr-5 text-center">ایجاد آدرس جدید</h3>
+                                <div class="form-group form-group--inline">
+                                    <label>استان<span>*</span>
+                                    </label>
+                                    <div class="form-group__content">
+                                        <input id='input_city' class="form-control" type="text" name="state" >
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group form-group--inline">
-                                <label>آدرس<span>*</span>
-                                </label>
-                                <div class="form-group__content">
-                                    <input class="form-control" type="text" name="address" >
+                                <div class="form-group form-group--inline">
+                                    <label>آدرس<span>*</span>
+                                    </label>
+                                    <div class="form-group__content">
+                                        <input  id = 'input_add' class="form-control" type="text" name="address" >
+                                    </div>
                                 </div>
-                            </div>
                             
-                            <div class="form-group form-group--inline">
-                                <label>کدپستی<span>*</span>
-                                </label>
-                                <div class="form-group__content">
-                                    <input class="form-control" type="text" name="code" >
+                            
+                                <div class="form-group form-group--inline">
+                                    <label>کدپستی<span>*</span>
+                                    </label>
+                                    <div class="form-group__content">
+                                        <input  id = "input_code" class="form-control" type="text" name="code" >
+                                    </div>
                                 </div>
+                            
                             </div>
-                            <!-- <form   action="new_add " method="post">
-                                {% csrf_token %}
-                                {{user_address|crispy}}
-                                <button  class = "btn bg-primary" type='submit'>ایجاد آدرس</button>
-                            </form>   -->
+                            <script>
+                                
+                                document.body.addEventListener('change', function (e) {
+                                    let target = e.target;
+                                    console.log(target.value)
+                                    if(target.type == "radio"){
+                                        if(target.value == "new")
+                                        {
+                                            document.getElementById("input_new_add").style.display = "block";
+                                            document.getElementById("input_code").setAttribute("required", "");
+                                            document.getElementById("input_add").setAttribute("required", "");
+                                            document.getElementById("input_city").setAttribute("required", "");
+                                        }else{
+                                            document.getElementById("input_new_add").style.display = "none";
+                                            document.getElementById("input_code").removeAttribute("required");
+                                            document.getElementById("input_add").removeAttribute("required");
+                                            document.getElementById("input_city").removeAttribute("required");
+
+                                        }
+                                    }
+                                });
+                            </script>
                             
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-                        <div class="ps-checkout__order">
+                        <div class="ps-checkout__order" style="background-color:rgba(175, 206, 241, 0.87); border-radius:10px;">
                             <header>
-                                <h3>سفارش شما</h3>
+                                <h3 style="color: black;">سفارش شما</h3>
                             </header>
                             <div class="content">
                                 <table class="table ps-checkout__products">
                                     <thead>
                                         <tr>
                                            
-                                            <th class="text-uppercase">محصول</th>
-                                            <th class="text-uppercase">قیمت</th>
+                                            <th  style="color: black;" class="text-uppercase">محصول</th>
+                                            <th  style="color: black;" class="text-uppercase">قیمت</th>
                                             
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody >
                                         {% for item in cart %}
                                         
                                             <tr>
-                                                <td>{{ item.book.title }} {{ item.quantity }}x</td>
-                                                <td> ${{ item.total_price|floatformat:2 }} </td>
+                                                <td style="color: black;">{{ item.book.title }} {{ item.quantity }}x</td>
+                                                <td style="color: black;"> ${{ item.total_price|floatformat:2 }} </td>
                                             </tr>
                                         {% endfor %}
                                         {% if cart.coupon %}
                                         <tr>
-                                            <td>"{{ cart.discount.code }}" ({{ cart.discount.discount }}% off) </td>
+                                            <td style="color: black;">"{{ cart.discount.code }}" ({{ cart.discount.discount }}% off) </td>
                                             <td>
                                                 <span style="color: red;">- ${{ cart.get_discount|floatformat:2 }}</
                                                 span></td>
                                         </tr>
                                         {% endif %}
                                         <tr>
-                                            <td>جمع </td>
-                                            <td>${{ cart.get_total_price_after_discount|floatformat:2 }}</td>
+                                            <td style="color: black;">جمع </td>
+                                            <td style="color: black;">${{ cart.get_total_price_after_discount|floatformat:2 }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <footer>
-                                <h3>روش پرداخت</h3>
+                                <h3 style="color: black;">روش پرداخت</h3>
                                 
                                 <div class="form-group paypal">
                                     <div class="ps-radio ps-radio--small">
                                         <input class="form-control" type="radio" name="payment" id="rdo02" checked>
-                                        <label for="rdo02">کارت های عضو شتاب</label>
+                                        <label  style="color: black;" for="rdo02">کارت های عضو شتاب</label>
                                     </div>
                                     <ul class="ps-payment-method">
                                         <!-- <li><a href="#"><img src="{% static 'bookshop/images/payment/visa.png' %}" alt=""> کارت عضو شتاب</a></li> -->
@@ -108,7 +129,7 @@
                                        
                                     </ul>
                                     <!-- <a href="{%  url 'order_process'%}" class="ps-btn ps-btn--fullwidth">نهایی کردن سفارش</a> -->
-                                    <button  class = "ps-btn ps-btn--fullwidth "type='submit'>پرداخت</button>
+                                    <button  class = "ps-btn ps-btn--fullwidth " style="border-radius:10px" type='submit'>پرداخت</button>
                                 </div>
                             </footer>
                         </div>

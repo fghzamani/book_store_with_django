@@ -58,12 +58,14 @@ class Cart(object):
                 self.cart[book_id]['quantity'] += quantity
             book.removing_inventory(quantity)
             self.save()
+        
         else:
             pass
         
 
     def save(self):
-        # mark the session as "modified" to make sure it gets saved
+        """ mark the session as "modified" to make sure it gets saved
+        """
         self.session.modified = True
 
     def remove(self, book ):
@@ -112,4 +114,24 @@ class Cart(object):
             return self.discount.amount *  self.get_total_price()    
        
     
+
+
+
+    #    print('override',override_quantity)
+            
+        #     if override_quantity:
+        #         if quantity < self.cart[book_id]['quantity']: # for case that customer rreduce the quantity of book
+        #             book.adding_inventory(self.cart[book_id]['quantity']-quantity)
+        #             print('quantity',quantity)
+        #             print('GGGGGGGGGGGGGG',self.cart[book_id]['quantity'])
+        #             self.cart[book_id]['quantity'] = quantity
+        #             self.save()
+        #         else:
+        #             self.cart[book_id]['quantity'] = quantity
+        #             book.removing_inventory(quantity - self.cart[book_id]['quantity'])
+        #             self.save()
+        #     else:
+        #         self.cart[book_id]['quantity'] = quantity
+        #         book.removing_inventory(quantity)
+        #         self.save()
    

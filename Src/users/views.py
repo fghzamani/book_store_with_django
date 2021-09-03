@@ -7,7 +7,10 @@ from django.contrib.auth.decorators import login_required
 from orders.models import Order
 
 def user_login(request):
-   
+	"""
+	any user can login with this function
+
+	"""
 	if request.method == 'POST':
 		form = UserLoginForm(request.POST)
 		if form.is_valid():
@@ -30,20 +33,26 @@ def user_login(request):
 
 
 def user_logout(request):
+	"""
+	makes any kind of login user to logout
+	"""
 	logout(request)
 	messages.success(request, 'you logged out successfully', 'success')
 	return redirect('index')
 
 
 def user_register(request):
-    
+	"""
+	used for only  customer registerations
+
+	"""
 	if request.method == 'POST':
 		
 		form = UserRegistrationForm(request.POST)
 		if form.is_valid():
 			cd = form.cleaned_data
 			user = User.objects.create_user(first_name =cd['first_name'], last_name = cd['last_name']
-			,password = cd['password'],email = cd['email'],username = cd['email'])
+			,password = cd['password'],email = cd['email'],username = cd['email'])   # instead of create for hashing the password
 			user.save()
 			login(request, user)
 			messages.success(request, 'you registered successfully', 'success')
@@ -72,17 +81,21 @@ def user_dasshboard(request):
 
 @login_required
 def add_new_address(request):
+	"""
+	enable a customer to add new addresses  
+
+	"""
 	if request.user.is_staff==False:
 		addresses = {}
 		try:
 			# address = Address.objects.get(customer=request.user,is_default=True)
 			addresses=Address.objects.filter(customer=request.user).exclude(is_active = False)
-			print('addresses',addresses)
 			if request.method =='POST':
 				user_address = AddUserAddresForm(request.POST)
+				print('user address',user_address)
 				if user_address.is_valid():
 					cd=user_address.cleaned_data
-					new_add = Address.objects.create(customer=request.user,address=cd['address'],postal_code=cd['postal_code'],city=cd['city'],is_default=cd['is_default'])
+					new_add = Address.objects.create(customer=request.user,address=cd['address'],postal_code=cd['postal_code'],city=cd['city'])
 					new_add.save()
 						
 					messages.success(request,'آدرس جدید با موفقیت ذخیره شد','success')
@@ -95,6 +108,10 @@ def add_new_address(request):
 
 @login_required
 def change_default_address(request):
+	"""
+	this is for changing default address
+
+	"""
 	
 	if request.method =="POST":
 		choosen_address = request.POST.get("addr")

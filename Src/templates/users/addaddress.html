@@ -3,11 +3,11 @@
 {% load crispy_forms_tags %}
 <title>{% block title %} ثبت نام | کتاب فروشی{% endblock%}</title>
 {% block content %}
-    <div class="container">
-        <div class="ps-content pt-80 pb-80">
-            <div class="ps-container">
-                <div class="ps-cart-listing">
-                    <table class="table ps-cart__table  text-right">
+    <div class="card-body">
+        <div class="ps-content mr-10 ">
+            <div class="ps-container ">
+                <div class="ps-cart-listing mr-4">
+                    <table class="table ps-cart__table   text-right">
                         <thead >
                             <tr>
                                 <th></th>
@@ -23,7 +23,7 @@
                               
                                     <tr>
                                      
-                                        <td>
+                                        <td class="card-header">
                                             <br> {{ad.city}} {{ad.address}}</td>
                                         <td>
                                             <form action="{% url 'address_remove' ad.id %}" method="post">
@@ -43,9 +43,9 @@
             <hr>
           
         </div>
-            <h3 class=" card bg-light pt-1 pr-5 text-center">ایجاد آدرس جدید</h3>
+            <h3 class=" card-body bg-light pt-1 pr-5 text-center">ایجاد آدرس جدید</h3>
             
-            <form class="form-group" method="post">
+            <form class="form-group text-right mr-3 " style="color: black; width:50%;" method="post">
                 {% csrf_token %}
                 {{user_address|crispy}}
                 <button  class = "btn bg-primary"type='submit'>ایجاد آدرس</button>

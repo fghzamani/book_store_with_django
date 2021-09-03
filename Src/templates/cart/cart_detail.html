@@ -40,16 +40,18 @@
                                     <td>${{ item.price }}</td>
                                     <td>
                                         <div class="form-group--number">
-                                            <form action="{% url 'cart_add' book.id %}" method="POST">
+                                            <!-- <form action="{% url 'cart_add' book.id %}" method="POST">
                                                 {{ item.update_quantity_form.quantity }}
                                                 {{ item.update_quantity_form.override }}
                                                 <input type="submit"  value="+" style="background-color: black; color:white;">
                                                 {% csrf_token %}
-                                              </form>
+                                              </form> -->
                                            
                                             
                                         </div>
                                     </td>
+                                    <td>{{ item.quantity }} </td> 
+
                                     <td>${{ item.total_price }}</td>
                                     <td>
                                         <form action="{% url 'cart_remove' book.id %}" method="post">

@@ -34,6 +34,8 @@ class Book(models.Model):
 
     def get_discounted_price(self):
         if self.get_coupon_type() == 'c':
+            if self.price - self.coupon.get_cash_amount() <= 0 :
+                return self.price
             return self.price - self.coupon.get_cash_amount()
         elif self.get_coupon_type() == 'p':
             return self.price - self.price*self.coupon.get_percent_amount()
@@ -48,7 +50,7 @@ class Book(models.Model):
         return reverse('book_detail', args=[str(self.id)])
         
     def has_inventory(self,number):
-        return self.inventory>0 and self.inventory>= number
+        return self.inventory>0 and self.inventory  >= number
     
 
     def removing_inventory(self,number):
@@ -122,6 +124,12 @@ class Coupon(models.Model):
         ordering = ['created_date']
         verbose_name = " کوپن"
         verbose_name_plural = 'کوپن ها'
+
+    def __str__(self):
+        if self.coupon_type =='c':
+            return  f'{self.cash_amount} نقدی'
+        else:
+            return f'{self.percent_amount} درصد'
     
     def get_cash_amount(self):
         return self.cash_amount

@@ -4,7 +4,7 @@ from .models import Book,Category
 from django.db.models import Q
 from cart.forms import CartAddProductForm
 from django.views.generic.edit import FormMixin
-
+# ,CartAddProductForm_func
 class HomeView(TemplateView):
     """
         this class is for rendering main page(index) of site
@@ -18,11 +18,6 @@ class HomeView(TemplateView):
 
         return context
 
-
-# class BookListView(ListView):
-#     model = Book
-#     # paginate_by = 2
-#     template_name = 'bookshop/book_list.html'
    
     
     
@@ -35,7 +30,10 @@ class BookDetailView(DetailView):
     template_name = 'bookshop/book_detail.html'
     def get_context_data(self, **kwargs):
         context = super(BookDetailView, self).get_context_data(**kwargs)
-        context['form'] = CartAddProductForm(initial={'book': self.object})
+        # cartClass = CartAddProductForm_func(self.object.inventory)
+        form_class = CartAddProductForm
+        # context['form'] = cartClass(initial={'book': self.object})
+        context['form'] = form_class(initial={'book': self.object})
         context['discount_price'] = self.object.get_discounted_price()
         if self.object.price == self.object.get_discounted_price():
             context['isDiscounted'] = False
@@ -47,26 +45,57 @@ class BookDetailView(DetailView):
     
     
     
-class BookDetailForm(FormView,FormMixin):
+class BookDetailForm_(FormView,FormMixin):
     """
     form for changing the number of 
 
     """
     template_name = 'bookshop/book_detail.html'
     form_class = CartAddProductForm
+    # form_class = CartAddProductForm_func(5)
     success_url = '/cart/'
 
 
-class CategoryListView(ListView):
+def BookDetailForm_func(max_inventory = 10):
+    """
+    rapper function [summary]
+
+    """
+    MAX_INVENTORY = max_inventory
+    class BookDetailForm_(FormView,FormMixin):
+        """
+        form for changing the number of 
+
+        """
+        template_name = 'bookshop/book_detail.html'
+        # form_class = CartAddProductForm
+        form_class = CartAddProductForm_func(MAX_INVENTORY)
+        success_url = '/cart/'
     
+    return BookDetailForm_
+
+
+class CategoryListView(ListView):
+    """
+    show lists of all categories
+
+    """
     model = Category
     template_name = 'bookshop/all_category_list.html'
 class CategoryDetailView(DetailView):
+    """
+    [summary]
+
+    """
     model = Category
     template_name = 'bookshop/category_detail.html' 
   
 
 class SearchList(ListView):
+    """
+    for searching and show results
+
+    """
     model = Book
     template_name = 'bookshop/search.html'
     def get(self,request):

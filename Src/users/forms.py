@@ -88,6 +88,6 @@ class AddUserAddresForm(forms.ModelForm):
 	"""
 	class Meta:
 		model = Address
-		fields =['city','address','postal_code','is_default']
+		fields =['city','address','postal_code']
 
 

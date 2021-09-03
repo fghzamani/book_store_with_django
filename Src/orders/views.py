@@ -23,7 +23,7 @@ def order_create(request):
         
         if request.method == 'GET':
             customer = request.user
-            
+           
             customer_address = Address.objects.filter(customer=request.user).first()
             
             if len(cart) != 0:
@@ -44,7 +44,7 @@ def order_create(request):
                     item['book'].save()
                     
                 
-                order.state =True
+                # order.state =True
                 order.save()
             
             request.session['discount_id']=0
@@ -70,12 +70,16 @@ def created_order(request ):
 def process_order(request):
     if request.user.is_staff ==False:
         result = {}
+        order = Order.objects.get(state=False , customer=request.user)
         if request.method =="POST":
             if request.POST.get("addr") != "new":
                 choosen_address = request.POST.get("addr")
                 print("CHOSEN ADD",choosen_address)
                 result = Address.objects.get(id__exact=choosen_address)
                 result.is_default=True
+                order.billing_address = result
+                order.state =True
+                order.save()
                 result.save()
             
             else:
@@ -83,6 +87,10 @@ def process_order(request):
                 address = request.POST.get('address')
                 postal_code = request.POST.get('code')
                 result = Address.objects.create(customer=request.user,address=address,city = city,postal_code = postal_code , is_default=True)
+                print(result)
+                order.billing_address = result
+                order.state =True
+                order.save()
                 result.save()
             other_add=Address.objects.exclude(id__exact=result.id)
             for ad in other_add:

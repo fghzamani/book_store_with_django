@@ -119,7 +119,7 @@
                                         var myChart1 = new Chart(ctx, {
                                             type: 'line',
                                             data: {
-                                                labels: [{% for order in orders %} '{{order.created_date}}', {% endfor %}],
+                                                labels: [{% for order in orders %} '{{order.created_date.date}}', {% endfor %}],
                                         datasets: [{
                                             label: 'orders total price vs date',
                                             data: [{% for order in orders %} {{ order.total_price }}, {% endfor %}],

@@ -5,16 +5,16 @@
     
     {% for object in object_list %}
     
-    <div class="container mt-3" style="width: 100%;">   
+    <div class="container mt-3" style="width: 70%;">   
         
-        <div class="card bg-dark ">
+        <div class="card bg-info ">
             <div class="card-header bg-light ">
                 <a style="color: black;" href="{% url 'book_detail' object.pk %}"><span class="font-weight-bold">{{ object.title }} | {{object.author}}</span> </a>&middot;
                 <span class="text-muted">{{ object.price }} تومان</span>
                 
             </div>
             <div class="card-body">
-               <span>موجودی فعلی</span> {{ object.inventory }} عدد
+               <span style="color: white;">موجودی فعلی</span> <span style="color: white;">{{ object.inventory }} عدد</span> 
                <!-- <img class="lazy" src="{% if object.cover %}{{ object.cover.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt=""> -->
               </div>
             <div class="card-footer text-center text-muted">

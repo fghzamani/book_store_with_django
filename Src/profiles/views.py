@@ -13,6 +13,10 @@ from orders.models import Order
 from django.db.models import Sum
 
 class UserAccessMixin(PermissionRequiredMixin):
+    """
+    overriding Mixin for checking whether the client is customer or steff or superuser 
+
+    """
     def dispatch(self,request,*args,**kwargs):
         if (not self.request.user.is_authenticated):
             return redirect_to_login(self.request.get_full_path(),self.get_login_url(),self.get_redirect_field_name())
@@ -21,6 +25,10 @@ class UserAccessMixin(PermissionRequiredMixin):
         return super(UserAccessMixin,self).dispatch(request,*args,**kwargs)
 
 class BookCreateView(UserAccessMixin,CreateView):
+    """
+    this class enable staff and admin to add book to store
+
+    """
     model=Book
     raise_exception=True
     permission_required = []
@@ -31,15 +39,21 @@ class BookCreateView(UserAccessMixin,CreateView):
         return reverse('staff_profile')
 
 class BookUpdateView(UserAccessMixin,UpdateView):
+    """Update book info 
+    """
     model=Book
     raise_exception=True
     permission_required = []
-    fields = ['title','author','price','inventory','cover','description','category','publisher']
+    fields = ['title','author','price','inventory','cover','description','category','publisher','coupon']
     template_name = 'profiles/book_edit.html'
     def get_success_url(self):
         return reverse('staff_profile')
 
 class BookDeleteView(UserAccessMixin,DeleteView):
+    """
+    delete book from store
+
+    """
     model=Book
     permission_required = []
     template_name = 'profiles/book_delete.html'
@@ -47,10 +61,16 @@ class BookDeleteView(UserAccessMixin,DeleteView):
         return reverse_lazy('staff_profile')
 
 class BookListView(UserAccessMixin,ListView):
+    """
+    show all books of store in panel
+
+    """
     model=Book
     template_name = 'profiles/books_list.html'
     permission_required = []
 class NewCategoryView(UserAccessMixin,CreateView):
+    """enable staff and addmin to add a new category
+    """
     model=Category
     permission_required = []
     template_name = 'profiles/new_category.html'
@@ -59,6 +79,10 @@ class NewCategoryView(UserAccessMixin,CreateView):
         return reverse_lazy('staff_profile')
 
 class NewCouponView(UserAccessMixin,CreateView):
+    """
+    add new coupon
+
+    """
     model = Discount
     permission_required = []
     template_name = 'profiles/add_new_coupon.html'
@@ -66,12 +90,20 @@ class NewCouponView(UserAccessMixin,CreateView):
     def get_success_url(self):
         return reverse('staff_profile')
 class CouponListView(UserAccessMixin,ListView):
+    """
+    show all coupons of store in panel
+
+    """
     permission_required = []
     model = Discount
     template_name = 'profiles/allcoupons.html'
    
 
 class StaffProfileView(UserAccessMixin,TemplateView):
+    """
+    show staff panel to staffs
+
+    """
     permission_required = []
     model = Staff
     template_name='profiles/staffprofile_home.html'
@@ -79,6 +111,10 @@ class StaffProfileView(UserAccessMixin,TemplateView):
 
     
 class StoreReportAdmin(TemplateView):
+    """
+    provides some reports for addmin in addmin panel
+
+    """
     model = None
     template_name = 'profiles/adminreport.html'
     def dispatch(self,request,*args,**kwargs):
@@ -98,6 +134,10 @@ class StoreReportAdmin(TemplateView):
         context['customers_num'] = Customer.objects.filter(is_staff=False).count()
         return context
 class NewStaffCreateView(UserAccessMixin,CreateView):
+    """
+    enable addmin to add new staff to store
+
+    """
     model=Staff
     raise_exception=True
     permission_required = ['staff.add_staff']

@@ -22,5 +22,4 @@ for finilizing his/her order ,he/she needs to login.
 
 ---
 ## Book List
- It's possible to see all books and all books of every category
- 
+ It's possible to see all books and all books of every category.

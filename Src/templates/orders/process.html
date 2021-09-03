@@ -1,12 +1,78 @@
 {% extends 'bookshop/base2.html' %}
 {% load static %}
 {%  block content%}
-  <div class="card">
-    <h3>نشانی انتخابی مربوط به سفارش شما</h3>
-    {{result.city}}
-    {{result.address}}
+  <!-- <section class="container ">
    
-    <a href="{%  url 'order_created'%}" class="ps-btn ps-btn--fullwidth">پرداخت</a>
-  </div>
+    <div class="row">
+      <div class="col-6 mr-4">
+        
+        <div class='col-6 align-self-left'>
+          <br>
+          <img src="{% static 'bookshop/images/shopping.png' %}"  width="300" height="250" alt="" >
+      </div>
+      </div>
 
+      
+    </div>
+  
+  </section> -->
+
+  <section class="my_account_area pt--80 pb--55 bg--white">
+    <div class="container">
+        <div class="row justify-content-center">
+           <h3>صفحه پرداخت</h3>
+            <div class="col-lg-6 col-12">
+              <div class="ps-checkout__order card " style="background-color:rgba(187, 113, 29, 0.151); border-radius:10px; width:70%;">
+                <header>
+                    <h3 style="color: black;">نشانی فاکتور شما</h3>
+                </header>
+                <div class="content">
+                    <table class="table ps-checkout__products">
+                        <thead>
+                            <tr>
+                              
+                                <th  style="color: black;" class="text-uppercase"></th>
+                                <th  style="color: black;" class="text-uppercase"></th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody >
+                        
+                            
+                                <tr>
+                                    <td style="color: black;">{{result.city}} </td>
+                                    <td style="color: black;"> {{result.address}} </td>
+                                </tr>
+                          
+                          
+                            <tr>
+                                <td style="color: black;"> هزینه فاکتور</td>
+                                <td style="color: black;"></td>
+                            </tr>
+                            <tr>
+                              <td style="color: black;"> هزینه ارسال</td>
+                              <td style="color: black;">20000 تومان</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <footer>
+                    <h3 style="color: black;"></h3>
+                    
+                    <div class="form-group paypal">
+                      
+                        <a href="{%  url 'order_created'%}" class="ps-btn ps-btn--fullwidth">برای نهایی کردن کلید کنید</a>
+                    </div>
+                </footer>
+              </div>
+                
+            </div>
+            <div class='col-6 align-self-left'>
+              
+              <img src="{% static 'bookshop/images/shopping.png' %}"  width="500" height="500" alt="" >
+          </div>
+        </div>
+    </div>
+  
+</section>
 {% endblock %}
